@@ -1,0 +1,6 @@
+build/
+.afile
+make-lib.*
+*.o
+*_s.c
+*_u.c
