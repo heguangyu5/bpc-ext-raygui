@@ -1144,7 +1144,11 @@
                                     (container-value-set! active (pragma::elong "active"))
                                     (container-value-set! focus (pragma::elong "focus"))
                                     NULL)))))))))
-
+; -1: no action
+;  0: close
+;  1: button 1
+;  2: button 2
+;  N: button N
 (defbuiltin (guimessagebox bounds title message buttons)
     (%with-c-bounds 'GuiMessageBox
         (unless (string? title)

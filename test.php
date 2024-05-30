@@ -1,27 +1,42 @@
 <?php
 
-InitWindow(400, 200, "raygui - controls test suite");
+InitWindow(960, 560, "raygui - controls test suite");
+SetExitKey(0);
 SetTargetFPS(60);
 
+$exitWindow = false;
 $showMessageBox = false;
 
-while (!WindowShouldClose())
+while (!$exitWindow)
 {
+    // Update
+    $exitWindow = WindowShouldClose();
+    if (IsKeyPressed(KEY_ESCAPE)) {
+        $showMessageBox = !$showMessageBox;
+    }
+
+    // Draw
     BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(GUI_CONTROL_DEFAULT, BACKGROUND_COLOR)));
 
-        if (GuiButton(array(24, 24, 120, 30), "#191#Show Message")) $showMessageBox = true;
-
-        if ($showMessageBox)
-        {
+        if ($showMessageBox) {
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(RAYWHITE, 0.8));
             $result = GuiMessageBox(
-                array(85, 70, 250, 100),
-                "#191#Message Box",
-                "Hi! This is a message!",
-                "Nice;Cool"
+                array(
+                    GetScreenWidth()/2 - 125, // x
+                    GetScreenHeight()/2 - 50, // y
+                    250,
+                    100
+                ),
+                GuiIconText(ICON_EXIT, "Close Window"),
+                "Do you really want to exit?",
+                "Yes;No"
             );
-
-            if ($result >= 0) $showMessageBox = false;
+            if ($result == 0 || $result == 2) {
+                $showMessageBox = false;
+            } elseif ($result == 1) {
+                $exitWindow = true;
+            }
         }
 
     EndDrawing();
