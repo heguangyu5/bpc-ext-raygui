@@ -7,6 +7,12 @@ SetTargetFPS(60);
 $exitWindow = false;
 $showMessageBox = false;
 
+$dropdownBox000Active = 0;
+$dropdownBox000EditMode = false;
+
+$dropdownBox001Active = 0;
+$dropdownBox001EditMode = false;
+
 while (!$exitWindow)
 {
     // Update
@@ -18,6 +24,18 @@ while (!$exitWindow)
     // Draw
     BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(GUI_CONTROL_DEFAULT, BACKGROUND_COLOR)));
+
+        GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
+        GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
+        if (GuiDropdownBox(array(25, 65, 125, 30), "#01#ONE;#02#TWO;#03#THREE;#04#FOUR", $dropdownBox001Active, $dropdownBox001EditMode)) {
+            $dropdownBox001EditMode = !$dropdownBox001EditMode;
+        }
+        GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
+        GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 0);
+
+        if (GuiDropdownBox(array(25, 25, 125, 30), "ONE;TWO;THREE", $dropdownBox000Active, $dropdownBox000EditMode)) {
+            $dropdownBox000EditMode = !$dropdownBox000EditMode;
+        }
 
         if ($showMessageBox) {
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(RAYWHITE, 0.8));

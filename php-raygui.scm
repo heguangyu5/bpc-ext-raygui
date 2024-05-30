@@ -10,8 +10,56 @@
         RAYGUI_VERSION_MINOR
         RAYGUI_VERSION_PATCH
         RAYGUI_VERSION
+        ; enum GuiState
+        STATE_NORMAL
+        STATE_FOCUSED
+        STATE_PRESSED
+        STATE_DISABLED
+        ; enum GuiTextAlignment
+        TEXT_ALIGN_LEFT
+        TEXT_ALIGN_CENTER
+        TEXT_ALIGN_RIGHT
+        ; enum GuiTextAlignmentVertical
+        TEXT_ALIGN_TOP
+        TEXT_ALIGN_MIDDLE
+        TEXT_ALIGN_BOTTOM
+        ; enum GuiTextWrapMode
+        TEXT_WRAP_NONE
+        TEXT_WRAP_CHAR
+        TEXT_WRAP_WORD
         ; enum GuiControl
         GUI_CONTROL_DEFAULT
+        LABEL
+        BUTTON
+        TOGGLE
+        SLIDER
+        PROGRESSBAR
+        CHECKBOX
+        COMBOBOX
+        DROPDOWNBOX
+        TEXTBOX
+        VALUEBOX
+        SPINNER
+        LISTVIEW
+        COLORPICKER
+        SCROLLBAR
+        STATUSBAR
+        ; enum GuiControlProperty
+        BORDER_COLOR_NORMAL
+        BASE_COLOR_NORMAL
+        TEXT_COLOR_NORMAL
+        BORDER_COLOR_FOCUSED
+        BASE_COLOR_FOCUSED
+        TEXT_COLOR_FOCUSED
+        BORDER_COLOR_PRESSED
+        BASE_COLOR_PRESSED
+        TEXT_COLOR_PRESSED
+        BORDER_COLOR_DISABLED
+        BASE_COLOR_DISABLED
+        TEXT_COLOR_DISABLED
+        BORDER_WIDTH
+        TEXT_PADDING
+        TEXT_ALIGNMENT
         ; enum GuiDefaultProperty
         TEXT_SIZE
         TEXT_SPACING
@@ -277,6 +325,15 @@
         ICON_253
         ICON_254
         ICON_255
+        ; Global gui state control functions
+        (guienable)
+        (guidisable)
+        (guilock)
+        (guiunlock)
+        (guiislocked)
+        (guisetalpha alpha)
+        (guisetstate state)
+        (guigetstate)
         ; Style set/get functions
         (guisetstyle control property value)
         (guigetstyle control property)
@@ -335,9 +392,67 @@
 (defconstant RAYGUI_VERSION_PATCH   (pragma::elong "RAYGUI_VERSION_PATCH"))
 (defconstant RAYGUI_VERSION         (pragma::string "RAYGUI_VERSION"))
 
+; enum GuiState
+
+(defconstant STATE_NORMAL   (pragma::elong "STATE_NORMAL"))
+(defconstant STATE_FOCUSED  (pragma::elong "STATE_FOCUSED"))
+(defconstant STATE_PRESSED  (pragma::elong "STATE_PRESSED"))
+(defconstant STATE_DISABLED (pragma::elong "STATE_DISABLED"))
+
+; enum GuiTextAlignment
+
+(defconstant TEXT_ALIGN_LEFT    (pragma::elong "TEXT_ALIGN_LEFT"))
+(defconstant TEXT_ALIGN_CENTER  (pragma::elong "TEXT_ALIGN_CENTER"))
+(defconstant TEXT_ALIGN_RIGHT   (pragma::elong "TEXT_ALIGN_RIGHT"))
+
+; enum GuiTextAlignmentVertical
+
+(defconstant TEXT_ALIGN_TOP     (pragma::elong "TEXT_ALIGN_TOP"))
+(defconstant TEXT_ALIGN_MIDDLE  (pragma::elong "TEXT_ALIGN_MIDDLE"))
+(defconstant TEXT_ALIGN_BOTTOM  (pragma::elong "TEXT_ALIGN_BOTTOM"))
+
+; enum GuiTextWrapMode
+
+(defconstant TEXT_WRAP_NONE (pragma::elong "TEXT_WRAP_NONE"))
+(defconstant TEXT_WRAP_CHAR (pragma::elong "TEXT_WRAP_CHAR"))
+(defconstant TEXT_WRAP_WORD (pragma::elong "TEXT_WRAP_WORD"))
+
 ; enum GuiControl
 
 (defconstant GUI_CONTROL_DEFAULT (pragma::elong "DEFAULT"))
+(defconstant LABEL               (pragma::elong "LABEL"))
+(defconstant BUTTON              (pragma::elong "BUTTON"))
+(defconstant TOGGLE              (pragma::elong "TOGGLE"))
+(defconstant SLIDER              (pragma::elong "SLIDER"))
+(defconstant PROGRESSBAR         (pragma::elong "PROGRESSBAR"))
+(defconstant CHECKBOX            (pragma::elong "CHECKBOX"))
+(defconstant COMBOBOX            (pragma::elong "COMBOBOX"))
+(defconstant DROPDOWNBOX         (pragma::elong "DROPDOWNBOX"))
+(defconstant TEXTBOX             (pragma::elong "TEXTBOX"))
+(defconstant VALUEBOX            (pragma::elong "VALUEBOX"))
+(defconstant SPINNER             (pragma::elong "SPINNER"))
+(defconstant LISTVIEW            (pragma::elong "LISTVIEW"))
+(defconstant COLORPICKER         (pragma::elong "COLORPICKER"))
+(defconstant SCROLLBAR           (pragma::elong "SCROLLBAR"))
+(defconstant STATUSBAR           (pragma::elong "STATUSBAR"))
+
+; enum GuiControlProperty
+
+(defconstant BORDER_COLOR_NORMAL   (pragma::elong "BORDER_COLOR_NORMAL"))
+(defconstant BASE_COLOR_NORMAL     (pragma::elong "BASE_COLOR_NORMAL"))
+(defconstant TEXT_COLOR_NORMAL     (pragma::elong "TEXT_COLOR_NORMAL"))
+(defconstant BORDER_COLOR_FOCUSED  (pragma::elong "BORDER_COLOR_FOCUSED"))
+(defconstant BASE_COLOR_FOCUSED    (pragma::elong "BASE_COLOR_FOCUSED"))
+(defconstant TEXT_COLOR_FOCUSED    (pragma::elong "TEXT_COLOR_FOCUSED"))
+(defconstant BORDER_COLOR_PRESSED  (pragma::elong "BORDER_COLOR_PRESSED"))
+(defconstant BASE_COLOR_PRESSED    (pragma::elong "BASE_COLOR_PRESSED"))
+(defconstant TEXT_COLOR_PRESSED    (pragma::elong "TEXT_COLOR_PRESSED"))
+(defconstant BORDER_COLOR_DISABLED (pragma::elong "BORDER_COLOR_DISABLED"))
+(defconstant BASE_COLOR_DISABLED   (pragma::elong "BASE_COLOR_DISABLED"))
+(defconstant TEXT_COLOR_DISABLED   (pragma::elong "TEXT_COLOR_DISABLED"))
+(defconstant BORDER_WIDTH          (pragma::elong "BORDER_WIDTH"))
+(defconstant TEXT_PADDING          (pragma::elong "TEXT_PADDING"))
+(defconstant TEXT_ALIGNMENT        (pragma::elong "TEXT_ALIGNMENT"))
 
 ; enum GuiDefaultProperty
 
@@ -607,6 +722,45 @@
 (defconstant ICON_253                     (pragma::elong "ICON_253"))
 (defconstant ICON_254                     (pragma::elong "ICON_254"))
 (defconstant ICON_255                     (pragma::elong "ICON_255"))
+
+
+; Global gui state control functions
+
+(defbuiltin (guienable)
+    (pragma "GuiEnable()")
+    NULL)
+
+(defbuiltin (guidisable)
+    (pragma "GuiDisable()")
+    NULL)
+
+(defbuiltin (guilock)
+    (pragma "GuiLock()")
+    NULL)
+
+(defbuiltin (guiunlock)
+    (pragma "GuiUnlock()")
+    NULL)
+
+(defbuiltin (guiislocked)
+    (pragma::bool "GuiIsLocked()"))
+
+(defbuiltin (guisetalpha alpha)
+    (unless (flonum? alpha)
+        (set! alpha (mkflonumw 'GuiSetAlpha 1 alpha)))
+    (when alpha
+        (pragma "GuiSetAlpha((float)$1)" ($real->double alpha))
+        NULL))
+
+(defbuiltin (guisetstate state)
+    (unless (elong? state)
+        (set! state (mkelongw 'GuiSetState 1 state)))
+    (when state
+        (pragma "GuiSetState((int)$1)" ($belong->elong state))
+        NULL))
+
+(defbuiltin (guigetstate)
+    (pragma::elong "GuiGetState()"))
 
 ; Style set/get functions
 
