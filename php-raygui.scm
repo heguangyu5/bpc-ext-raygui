@@ -1050,7 +1050,8 @@
 
 (defbuiltin (guispinner bounds text (ref . value) minValue maxValue editMode)
     (%with-c-bounds 'GuiSpinner
-        (unless (string? text)
+        (unless (or (null? text)
+                    (string? text))
             (set! text (mkstrw 'GuiSpinner 2 text)))
         (when text
             (let ((value-val (container-value value)))
@@ -1069,8 +1070,8 @@
                                 (pragma "int value")
                                 (pragma "value = (int)$1" ($belong->elong value-val))
                                 (pragma "int result")
-                                (pragma "result = GuiSpinner(bounds, $1, &value, (int)$2, (int)$3, $4 == BTRUE)"
-                                        ($bstring->string text)
+                                (pragma "result = GuiSpinner(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
+                                        text
                                         ($belong->elong minValue)
                                         ($belong->elong maxValue)
                                         editMode)
@@ -1080,7 +1081,8 @@
 ; return #t
 (defbuiltin (guivaluebox bounds text (ref . value) minValue maxValue editMode)
     (%with-c-bounds 'GuiValueBox
-        (unless (string? text)
+        (unless (or (null? text)
+                    (string? text))
             (set! text (mkstrw 'GuiValueBox 2 text)))
         (when text
             (let ((value-val (container-value value)))
@@ -1099,8 +1101,8 @@
                                 (pragma "int value")
                                 (pragma "value = (int)$1" ($belong->elong value-val))
                                 (pragma "int result")
-                                (pragma "result = GuiValueBox(bounds, $1, &value, (int)$2, (int)$3, $4 == BTRUE)"
-                                        ($bstring->string text)
+                                (pragma "result = GuiValueBox(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
+                                        text
                                         ($belong->elong minValue)
                                         ($belong->elong maxValue)
                                         editMode)

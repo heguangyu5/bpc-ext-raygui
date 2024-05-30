@@ -15,6 +15,12 @@ $dropdownBox001EditMode = false;
 
 $forceSquaredChecked = false;
 
+$spinnerValue = 0;
+$spinnerEditMode = false;
+
+$valueBoxValue = 0;
+$valueBoxEditMode = false;
+
 while (!$exitWindow)
 {
     // Update
@@ -30,6 +36,15 @@ while (!$exitWindow)
         // First GUI column ---------------------------------------------
 
         GuiCheckBox(array(25, 108, 15, 15), "FORCE CHECK!", $forceSquaredChecked);
+
+        GuiSetStyle(TEXTBOX, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
+        if (GuiSpinner(array(25, 135, 125, 30), NULL, $spinnerValue, 0, 100, $spinnerEditMode)) {
+            $spinnerEditMode = !$spinnerEditMode;
+        }
+        if (GuiValueBox(array(25, 175, 125, 30), NULL, $valueBoxValue, 0, 100, $valueBoxEditMode)) {
+            $valueBoxEditMode = !$valueBoxEditMode;
+        }
+        GuiSetStyle(TEXTBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
 
         GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
         GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
