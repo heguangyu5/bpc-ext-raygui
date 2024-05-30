@@ -13,6 +13,8 @@ $dropdownBox000EditMode = false;
 $dropdownBox001Active = 0;
 $dropdownBox001EditMode = false;
 
+$forceSquaredChecked = false;
+
 while (!$exitWindow)
 {
     // Update
@@ -24,6 +26,10 @@ while (!$exitWindow)
     // Draw
     BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(GUI_CONTROL_DEFAULT, BACKGROUND_COLOR)));
+
+        // First GUI column ---------------------------------------------
+
+        GuiCheckBox(array(25, 108, 15, 15), "FORCE CHECK!", $forceSquaredChecked);
 
         GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
         GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
