@@ -21,6 +21,10 @@ $spinnerEditMode = false;
 $valueBoxValue = 0;
 $valueBoxEditMode = false;
 
+$textBuf = str_pad("Text box", 64, "\0");
+$filledLen = 0;
+$textBoxEditMode = false;
+
 while (!$exitWindow)
 {
     // Update
@@ -45,6 +49,10 @@ while (!$exitWindow)
             $valueBoxEditMode = !$valueBoxEditMode;
         }
         GuiSetStyle(TEXTBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
+
+        if (GuiTextBox(array(25, 215, 125, 30), $textBuf, $filledLen, $textBoxEditMode)) {
+            $textBoxEditMode = !$textBoxEditMode;
+        }
 
         GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
         GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
