@@ -337,6 +337,9 @@
         ; Style set/get functions
         (guisetstyle control property value)
         (guigetstyle control property)
+        ; Styles loading functions
+        (guiloadstyle fileName)
+        (guiloadstyledefault)
         ; Icons functionality
         (guiicontext iconId text)
         ; Container/separator controls, useful for controls organization
@@ -790,6 +793,18 @@
             (pragma::elong "GuiGetStyle((int)$1, (int)$2)"
                            ($belong->elong control)
                            ($belong->elong property)))))
+
+; Styles loading functions
+
+(defbuiltin (guiloadstyle fileName)
+    (set! fileName (mkpathw 'GuiLoadStyle 1 fileName))
+    (when fileName
+        (pragma "GuiLoadStyle($1)" ($bstring->string fileName))
+        NULL))
+
+(defbuiltin (guiloadstyledefault)
+    (pragma "GuiLoadStyleDefault()")
+    NULL)
 
 ; Icons functionality
 

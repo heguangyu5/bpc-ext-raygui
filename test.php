@@ -29,6 +29,15 @@ $showTextInputBox = false;
 $textInputBuf = str_repeat("\0", 256);
 $textInputFilledLen = 0;
 
+$visualStyleActive = 0;
+$prevVisualStyleActive = 0;
+$styleFiles = glob('styles/*.rgs');
+$styleNames = array('default');
+foreach ($styleFiles as $file) {
+    $styleNames[] = substr($file, strlen('styles/style_'), -4);
+}
+$styleNames = implode(';', $styleNames);
+
 while (!$exitWindow)
 {
     // Update
@@ -38,6 +47,19 @@ while (!$exitWindow)
     }
     if (IsKeyPressed(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_S)) {
         $showTextInputBox = true;
+    }
+
+    // style
+    if ($visualStyleActive != $prevVisualStyleActive) {
+        if ($visualStyleActive == 0) {
+            GuiLoadStyleDefault();
+            echo "load style default\n";
+        } else {
+            $styleFile = $styleFiles[$visualStyleActive-1];
+            GuiLoadStyle($styleFile);
+            echo "load style $styleFile\n";
+        }
+        $prevVisualStyleActive = $visualStyleActive;
     }
 
     // Draw
@@ -75,6 +97,8 @@ while (!$exitWindow)
         GuiSetState(STATE_DISABLED);
         GuiButton(array(30, 425, 115, 30), "DISABLED");
         GuiSetState(STATE_NORMAL);
+
+        GuiComboBox(array(25, 480, 125, 30), $styleNames, $visualStyleActive);
 
         GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
         GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
