@@ -25,12 +25,19 @@ $textBuf = str_pad("Text box", 64, "\0");
 $filledLen = 0;
 $textBoxEditMode = false;
 
+$showTextInputBox = false;
+$textInputBuf = str_repeat("\0", 256);
+$textInputFilledLen = 0;
+
 while (!$exitWindow)
 {
     // Update
     $exitWindow = WindowShouldClose();
     if (IsKeyPressed(KEY_ESCAPE)) {
         $showMessageBox = !$showMessageBox;
+    }
+    if (IsKeyPressed(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_S)) {
+        $showTextInputBox = true;
     }
 
     // Draw
@@ -52,6 +59,10 @@ while (!$exitWindow)
 
         if (GuiTextBox(array(25, 215, 125, 30), $textBuf, $filledLen, $textBoxEditMode)) {
             $textBoxEditMode = !$textBoxEditMode;
+        }
+
+        if (GuiButton(array(25, 255, 125, 30), GuiIconText(ICON_FILE_SAVE, "Save File"))) {
+            $showTextInputBox = true;
         }
 
         GuiGroupBox(array(25, 310, 125, 150), "STATES");
@@ -94,6 +105,30 @@ while (!$exitWindow)
                 $showMessageBox = false;
             } elseif ($result == 1) {
                 $exitWindow = true;
+            }
+        }
+
+        if ($showTextInputBox) {
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(RAYWHITE, 0.8));
+            $result = GuiTextInputBox(
+                array(
+                    GetScreenWidth()/2 - 120, // x
+                    GetScreenHeight()/2 - 60,
+                    240,
+                    140
+                ),
+                GuiIconText(ICON_FILE_SAVE, "Save file as..."),
+                "Introduce output file name:",
+                "Ok;Cancel",
+                $textInputBuf,
+                $textInputFilledLen
+            );
+            if ($result == 1) {
+                echo "should save to ", substr($textInputBuf, 0, $textInputFilledLen), "\n";
+            }
+            if ($result == 0 || $result == 1 || $result == 2) {
+                $showTextInputBox = false;
+                $textInputBuf[0] = "\0";
             }
         }
 
