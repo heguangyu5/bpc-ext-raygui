@@ -54,6 +54,17 @@ while (!$exitWindow)
             $textBoxEditMode = !$textBoxEditMode;
         }
 
+        GuiGroupBox(array(25, 310, 125, 150), "STATES");
+        GuiSetState(STATE_NORMAL);
+        GuiButton(array(30, 320, 115, 30), "NORMAL");
+        GuiSetState(STATE_FOCUSED);
+        GuiButton(array(30, 355, 115, 30), "FOCUSED");
+        GuiSetState(STATE_PRESSED);
+        GuiButton(array(30, 390, 115, 30), "#15#PRESSED");
+        GuiSetState(STATE_DISABLED);
+        GuiButton(array(30, 425, 115, 30), "DISABLED");
+        GuiSetState(STATE_NORMAL);
+
         GuiSetStyle(DROPDOWNBOX, TEXT_PADDING, 4);
         GuiSetStyle(DROPDOWNBOX, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         if (GuiDropdownBox(array(25, 65, 125, 30), "#01#ONE;#02#TWO;#03#THREE;#04#FOUR", $dropdownBox001Active, $dropdownBox001EditMode)) {
