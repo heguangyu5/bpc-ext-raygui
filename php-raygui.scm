@@ -20,9 +20,268 @@
         TEXT_LINE_SPACING
         TEXT_ALIGNMENT_VERTICAL
         TEXT_WRAP_MODE
+        ; enum GuiIconName
+        ICON_NONE
+        ICON_FOLDER_FILE_OPEN
+        ICON_FILE_SAVE_CLASSIC
+        ICON_FOLDER_OPEN
+        ICON_FOLDER_SAVE
+        ICON_FILE_OPEN
+        ICON_FILE_SAVE
+        ICON_FILE_EXPORT
+        ICON_FILE_ADD
+        ICON_FILE_DELETE
+        ICON_FILETYPE_TEXT
+        ICON_FILETYPE_AUDIO
+        ICON_FILETYPE_IMAGE
+        ICON_FILETYPE_PLAY
+        ICON_FILETYPE_VIDEO
+        ICON_FILETYPE_INFO
+        ICON_FILE_COPY
+        ICON_FILE_CUT
+        ICON_FILE_PASTE
+        ICON_CURSOR_HAND
+        ICON_CURSOR_POINTER
+        ICON_CURSOR_CLASSIC
+        ICON_PENCIL
+        ICON_PENCIL_BIG
+        ICON_BRUSH_CLASSIC
+        ICON_BRUSH_PAINTER
+        ICON_WATER_DROP
+        ICON_COLOR_PICKER
+        ICON_RUBBER
+        ICON_COLOR_BUCKET
+        ICON_TEXT_T
+        ICON_TEXT_A
+        ICON_SCALE
+        ICON_RESIZE
+        ICON_FILTER_POINT
+        ICON_FILTER_BILINEAR
+        ICON_CROP
+        ICON_CROP_ALPHA
+        ICON_SQUARE_TOGGLE
+        ICON_SYMMETRY
+        ICON_SYMMETRY_HORIZONTAL
+        ICON_SYMMETRY_VERTICAL
+        ICON_LENS
+        ICON_LENS_BIG
+        ICON_EYE_ON
+        ICON_EYE_OFF
+        ICON_FILTER_TOP
+        ICON_FILTER
+        ICON_TARGET_POINT
+        ICON_TARGET_SMALL
+        ICON_TARGET_BIG
+        ICON_TARGET_MOVE
+        ICON_CURSOR_MOVE
+        ICON_CURSOR_SCALE
+        ICON_CURSOR_SCALE_RIGHT
+        ICON_CURSOR_SCALE_LEFT
+        ICON_UNDO
+        ICON_REDO
+        ICON_REREDO
+        ICON_MUTATE
+        ICON_ROTATE
+        ICON_REPEAT
+        ICON_SHUFFLE
+        ICON_EMPTYBOX
+        ICON_TARGET
+        ICON_TARGET_SMALL_FILL
+        ICON_TARGET_BIG_FILL
+        ICON_TARGET_MOVE_FILL
+        ICON_CURSOR_MOVE_FILL
+        ICON_CURSOR_SCALE_FILL
+        ICON_CURSOR_SCALE_RIGHT_FILL
+        ICON_CURSOR_SCALE_LEFT_FILL
+        ICON_UNDO_FILL
+        ICON_REDO_FILL
+        ICON_REREDO_FILL
+        ICON_MUTATE_FILL
+        ICON_ROTATE_FILL
+        ICON_REPEAT_FILL
+        ICON_SHUFFLE_FILL
+        ICON_EMPTYBOX_SMALL
+        ICON_BOX
+        ICON_BOX_TOP
+        ICON_BOX_TOP_RIGHT
+        ICON_BOX_RIGHT
+        ICON_BOX_BOTTOM_RIGHT
+        ICON_BOX_BOTTOM
+        ICON_BOX_BOTTOM_LEFT
+        ICON_BOX_LEFT
+        ICON_BOX_TOP_LEFT
+        ICON_BOX_CENTER
+        ICON_BOX_CIRCLE_MASK
+        ICON_POT
+        ICON_ALPHA_MULTIPLY
+        ICON_ALPHA_CLEAR
+        ICON_DITHERING
+        ICON_MIPMAPS
+        ICON_BOX_GRID
+        ICON_GRID
+        ICON_BOX_CORNERS_SMALL
+        ICON_BOX_CORNERS_BIG
+        ICON_FOUR_BOXES
+        ICON_GRID_FILL
+        ICON_BOX_MULTISIZE
+        ICON_ZOOM_SMALL
+        ICON_ZOOM_MEDIUM
+        ICON_ZOOM_BIG
+        ICON_ZOOM_ALL
+        ICON_ZOOM_CENTER
+        ICON_BOX_DOTS_SMALL
+        ICON_BOX_DOTS_BIG
+        ICON_BOX_CONCENTRIC
+        ICON_BOX_GRID_BIG
+        ICON_OK_TICK
+        ICON_CROSS
+        ICON_ARROW_LEFT
+        ICON_ARROW_RIGHT
+        ICON_ARROW_DOWN
+        ICON_ARROW_UP
+        ICON_ARROW_LEFT_FILL
+        ICON_ARROW_RIGHT_FILL
+        ICON_ARROW_DOWN_FILL
+        ICON_ARROW_UP_FILL
+        ICON_AUDIO
+        ICON_FX
+        ICON_WAVE
+        ICON_WAVE_SINUS
+        ICON_WAVE_SQUARE
+        ICON_WAVE_TRIANGULAR
+        ICON_CROSS_SMALL
+        ICON_PLAYER_PREVIOUS
+        ICON_PLAYER_PLAY_BACK
+        ICON_PLAYER_PLAY
+        ICON_PLAYER_PAUSE
+        ICON_PLAYER_STOP
+        ICON_PLAYER_NEXT
+        ICON_PLAYER_RECORD
+        ICON_MAGNET
+        ICON_LOCK_CLOSE
+        ICON_LOCK_OPEN
+        ICON_CLOCK
+        ICON_TOOLS
+        ICON_GEAR
+        ICON_GEAR_BIG
+        ICON_BIN
+        ICON_HAND_POINTER
+        ICON_LASER
+        ICON_COIN
+        ICON_EXPLOSION
+        ICON_1UP
+        ICON_PLAYER
+        ICON_PLAYER_JUMP
+        ICON_KEY
+        ICON_DEMON
+        ICON_TEXT_POPUP
+        ICON_GEAR_EX
+        ICON_CRACK
+        ICON_CRACK_POINTS
+        ICON_STAR
+        ICON_DOOR
+        ICON_EXIT
+        ICON_MODE_2D
+        ICON_MODE_3D
+        ICON_CUBE
+        ICON_CUBE_FACE_TOP
+        ICON_CUBE_FACE_LEFT
+        ICON_CUBE_FACE_FRONT
+        ICON_CUBE_FACE_BOTTOM
+        ICON_CUBE_FACE_RIGHT
+        ICON_CUBE_FACE_BACK
+        ICON_CAMERA
+        ICON_SPECIAL
+        ICON_LINK_NET
+        ICON_LINK_BOXES
+        ICON_LINK_MULTI
+        ICON_LINK
+        ICON_LINK_BROKE
+        ICON_TEXT_NOTES
+        ICON_NOTEBOOK
+        ICON_SUITCASE
+        ICON_SUITCASE_ZIP
+        ICON_MAILBOX
+        ICON_MONITOR
+        ICON_PRINTER
+        ICON_PHOTO_CAMERA
+        ICON_PHOTO_CAMERA_FLASH
+        ICON_HOUSE
+        ICON_HEART
+        ICON_CORNER
+        ICON_VERTICAL_BARS
+        ICON_VERTICAL_BARS_FILL
+        ICON_LIFE_BARS
+        ICON_INFO
+        ICON_CROSSLINE
+        ICON_HELP
+        ICON_FILETYPE_ALPHA
+        ICON_FILETYPE_HOME
+        ICON_LAYERS_VISIBLE
+        ICON_LAYERS
+        ICON_WINDOW
+        ICON_HIDPI
+        ICON_FILETYPE_BINARY
+        ICON_HEX
+        ICON_SHIELD
+        ICON_FILE_NEW
+        ICON_FOLDER_ADD
+        ICON_ALARM
+        ICON_CPU
+        ICON_ROM
+        ICON_STEP_OVER
+        ICON_STEP_INTO
+        ICON_STEP_OUT
+        ICON_RESTART
+        ICON_BREAKPOINT_ON
+        ICON_BREAKPOINT_OFF
+        ICON_BURGER_MENU
+        ICON_CASE_SENSITIVE
+        ICON_REG_EXP
+        ICON_FOLDER
+        ICON_FILE
+        ICON_SAND_TIMER
+        ICON_220
+        ICON_221
+        ICON_222
+        ICON_223
+        ICON_224
+        ICON_225
+        ICON_226
+        ICON_227
+        ICON_228
+        ICON_229
+        ICON_230
+        ICON_231
+        ICON_232
+        ICON_233
+        ICON_234
+        ICON_235
+        ICON_236
+        ICON_237
+        ICON_238
+        ICON_239
+        ICON_240
+        ICON_241
+        ICON_242
+        ICON_243
+        ICON_244
+        ICON_245
+        ICON_246
+        ICON_247
+        ICON_248
+        ICON_249
+        ICON_250
+        ICON_251
+        ICON_252
+        ICON_253
+        ICON_254
+        ICON_255
         ; Style set/get functions
         (guisetstyle control property value)
         (guigetstyle control property)
+        ; Icons functionality
+        (guiicontext iconId text)
         ; Container/separator controls, useful for controls organization
         (guiwindowbox bounds title)
         (guigroupbox bounds text)
@@ -90,6 +349,265 @@
 (defconstant TEXT_ALIGNMENT_VERTICAL    (pragma::elong "TEXT_ALIGNMENT_VERTICAL"))
 (defconstant TEXT_WRAP_MODE             (pragma::elong "TEXT_WRAP_MODE"))
 
+; enum GuiIconName
+
+(defconstant ICON_NONE                    (pragma::elong "ICON_NONE"))
+(defconstant ICON_FOLDER_FILE_OPEN        (pragma::elong "ICON_FOLDER_FILE_OPEN"))
+(defconstant ICON_FILE_SAVE_CLASSIC       (pragma::elong "ICON_FILE_SAVE_CLASSIC"))
+(defconstant ICON_FOLDER_OPEN             (pragma::elong "ICON_FOLDER_OPEN"))
+(defconstant ICON_FOLDER_SAVE             (pragma::elong "ICON_FOLDER_SAVE"))
+(defconstant ICON_FILE_OPEN               (pragma::elong "ICON_FILE_OPEN"))
+(defconstant ICON_FILE_SAVE               (pragma::elong "ICON_FILE_SAVE"))
+(defconstant ICON_FILE_EXPORT             (pragma::elong "ICON_FILE_EXPORT"))
+(defconstant ICON_FILE_ADD                (pragma::elong "ICON_FILE_ADD"))
+(defconstant ICON_FILE_DELETE             (pragma::elong "ICON_FILE_DELETE"))
+(defconstant ICON_FILETYPE_TEXT           (pragma::elong "ICON_FILETYPE_TEXT"))
+(defconstant ICON_FILETYPE_AUDIO          (pragma::elong "ICON_FILETYPE_AUDIO"))
+(defconstant ICON_FILETYPE_IMAGE          (pragma::elong "ICON_FILETYPE_IMAGE"))
+(defconstant ICON_FILETYPE_PLAY           (pragma::elong "ICON_FILETYPE_PLAY"))
+(defconstant ICON_FILETYPE_VIDEO          (pragma::elong "ICON_FILETYPE_VIDEO"))
+(defconstant ICON_FILETYPE_INFO           (pragma::elong "ICON_FILETYPE_INFO"))
+(defconstant ICON_FILE_COPY               (pragma::elong "ICON_FILE_COPY"))
+(defconstant ICON_FILE_CUT                (pragma::elong "ICON_FILE_CUT"))
+(defconstant ICON_FILE_PASTE              (pragma::elong "ICON_FILE_PASTE"))
+(defconstant ICON_CURSOR_HAND             (pragma::elong "ICON_CURSOR_HAND"))
+(defconstant ICON_CURSOR_POINTER          (pragma::elong "ICON_CURSOR_POINTER"))
+(defconstant ICON_CURSOR_CLASSIC          (pragma::elong "ICON_CURSOR_CLASSIC"))
+(defconstant ICON_PENCIL                  (pragma::elong "ICON_PENCIL"))
+(defconstant ICON_PENCIL_BIG              (pragma::elong "ICON_PENCIL_BIG"))
+(defconstant ICON_BRUSH_CLASSIC           (pragma::elong "ICON_BRUSH_CLASSIC"))
+(defconstant ICON_BRUSH_PAINTER           (pragma::elong "ICON_BRUSH_PAINTER"))
+(defconstant ICON_WATER_DROP              (pragma::elong "ICON_WATER_DROP"))
+(defconstant ICON_COLOR_PICKER            (pragma::elong "ICON_COLOR_PICKER"))
+(defconstant ICON_RUBBER                  (pragma::elong "ICON_RUBBER"))
+(defconstant ICON_COLOR_BUCKET            (pragma::elong "ICON_COLOR_BUCKET"))
+(defconstant ICON_TEXT_T                  (pragma::elong "ICON_TEXT_T"))
+(defconstant ICON_TEXT_A                  (pragma::elong "ICON_TEXT_A"))
+(defconstant ICON_SCALE                   (pragma::elong "ICON_SCALE"))
+(defconstant ICON_RESIZE                  (pragma::elong "ICON_RESIZE"))
+(defconstant ICON_FILTER_POINT            (pragma::elong "ICON_FILTER_POINT"))
+(defconstant ICON_FILTER_BILINEAR         (pragma::elong "ICON_FILTER_BILINEAR"))
+(defconstant ICON_CROP                    (pragma::elong "ICON_CROP"))
+(defconstant ICON_CROP_ALPHA              (pragma::elong "ICON_CROP_ALPHA"))
+(defconstant ICON_SQUARE_TOGGLE           (pragma::elong "ICON_SQUARE_TOGGLE"))
+(defconstant ICON_SYMMETRY                (pragma::elong "ICON_SYMMETRY"))
+(defconstant ICON_SYMMETRY_HORIZONTAL     (pragma::elong "ICON_SYMMETRY_HORIZONTAL"))
+(defconstant ICON_SYMMETRY_VERTICAL       (pragma::elong "ICON_SYMMETRY_VERTICAL"))
+(defconstant ICON_LENS                    (pragma::elong "ICON_LENS"))
+(defconstant ICON_LENS_BIG                (pragma::elong "ICON_LENS_BIG"))
+(defconstant ICON_EYE_ON                  (pragma::elong "ICON_EYE_ON"))
+(defconstant ICON_EYE_OFF                 (pragma::elong "ICON_EYE_OFF"))
+(defconstant ICON_FILTER_TOP              (pragma::elong "ICON_FILTER_TOP"))
+(defconstant ICON_FILTER                  (pragma::elong "ICON_FILTER"))
+(defconstant ICON_TARGET_POINT            (pragma::elong "ICON_TARGET_POINT"))
+(defconstant ICON_TARGET_SMALL            (pragma::elong "ICON_TARGET_SMALL"))
+(defconstant ICON_TARGET_BIG              (pragma::elong "ICON_TARGET_BIG"))
+(defconstant ICON_TARGET_MOVE             (pragma::elong "ICON_TARGET_MOVE"))
+(defconstant ICON_CURSOR_MOVE             (pragma::elong "ICON_CURSOR_MOVE"))
+(defconstant ICON_CURSOR_SCALE            (pragma::elong "ICON_CURSOR_SCALE"))
+(defconstant ICON_CURSOR_SCALE_RIGHT      (pragma::elong "ICON_CURSOR_SCALE_RIGHT"))
+(defconstant ICON_CURSOR_SCALE_LEFT       (pragma::elong "ICON_CURSOR_SCALE_LEFT"))
+(defconstant ICON_UNDO                    (pragma::elong "ICON_UNDO"))
+(defconstant ICON_REDO                    (pragma::elong "ICON_REDO"))
+(defconstant ICON_REREDO                  (pragma::elong "ICON_REREDO"))
+(defconstant ICON_MUTATE                  (pragma::elong "ICON_MUTATE"))
+(defconstant ICON_ROTATE                  (pragma::elong "ICON_ROTATE"))
+(defconstant ICON_REPEAT                  (pragma::elong "ICON_REPEAT"))
+(defconstant ICON_SHUFFLE                 (pragma::elong "ICON_SHUFFLE"))
+(defconstant ICON_EMPTYBOX                (pragma::elong "ICON_EMPTYBOX"))
+(defconstant ICON_TARGET                  (pragma::elong "ICON_TARGET"))
+(defconstant ICON_TARGET_SMALL_FILL       (pragma::elong "ICON_TARGET_SMALL_FILL"))
+(defconstant ICON_TARGET_BIG_FILL         (pragma::elong "ICON_TARGET_BIG_FILL"))
+(defconstant ICON_TARGET_MOVE_FILL        (pragma::elong "ICON_TARGET_MOVE_FILL"))
+(defconstant ICON_CURSOR_MOVE_FILL        (pragma::elong "ICON_CURSOR_MOVE_FILL"))
+(defconstant ICON_CURSOR_SCALE_FILL       (pragma::elong "ICON_CURSOR_SCALE_FILL"))
+(defconstant ICON_CURSOR_SCALE_RIGHT_FILL (pragma::elong "ICON_CURSOR_SCALE_RIGHT_FILL"))
+(defconstant ICON_CURSOR_SCALE_LEFT_FILL  (pragma::elong "ICON_CURSOR_SCALE_LEFT_FILL"))
+(defconstant ICON_UNDO_FILL               (pragma::elong "ICON_UNDO_FILL"))
+(defconstant ICON_REDO_FILL               (pragma::elong "ICON_REDO_FILL"))
+(defconstant ICON_REREDO_FILL             (pragma::elong "ICON_REREDO_FILL"))
+(defconstant ICON_MUTATE_FILL             (pragma::elong "ICON_MUTATE_FILL"))
+(defconstant ICON_ROTATE_FILL             (pragma::elong "ICON_ROTATE_FILL"))
+(defconstant ICON_REPEAT_FILL             (pragma::elong "ICON_REPEAT_FILL"))
+(defconstant ICON_SHUFFLE_FILL            (pragma::elong "ICON_SHUFFLE_FILL"))
+(defconstant ICON_EMPTYBOX_SMALL          (pragma::elong "ICON_EMPTYBOX_SMALL"))
+(defconstant ICON_BOX                     (pragma::elong "ICON_BOX"))
+(defconstant ICON_BOX_TOP                 (pragma::elong "ICON_BOX_TOP"))
+(defconstant ICON_BOX_TOP_RIGHT           (pragma::elong "ICON_BOX_TOP_RIGHT"))
+(defconstant ICON_BOX_RIGHT               (pragma::elong "ICON_BOX_RIGHT"))
+(defconstant ICON_BOX_BOTTOM_RIGHT        (pragma::elong "ICON_BOX_BOTTOM_RIGHT"))
+(defconstant ICON_BOX_BOTTOM              (pragma::elong "ICON_BOX_BOTTOM"))
+(defconstant ICON_BOX_BOTTOM_LEFT         (pragma::elong "ICON_BOX_BOTTOM_LEFT"))
+(defconstant ICON_BOX_LEFT                (pragma::elong "ICON_BOX_LEFT"))
+(defconstant ICON_BOX_TOP_LEFT            (pragma::elong "ICON_BOX_TOP_LEFT"))
+(defconstant ICON_BOX_CENTER              (pragma::elong "ICON_BOX_CENTER"))
+(defconstant ICON_BOX_CIRCLE_MASK         (pragma::elong "ICON_BOX_CIRCLE_MASK"))
+(defconstant ICON_POT                     (pragma::elong "ICON_POT"))
+(defconstant ICON_ALPHA_MULTIPLY          (pragma::elong "ICON_ALPHA_MULTIPLY"))
+(defconstant ICON_ALPHA_CLEAR             (pragma::elong "ICON_ALPHA_CLEAR"))
+(defconstant ICON_DITHERING               (pragma::elong "ICON_DITHERING"))
+(defconstant ICON_MIPMAPS                 (pragma::elong "ICON_MIPMAPS"))
+(defconstant ICON_BOX_GRID                (pragma::elong "ICON_BOX_GRID"))
+(defconstant ICON_GRID                    (pragma::elong "ICON_GRID"))
+(defconstant ICON_BOX_CORNERS_SMALL       (pragma::elong "ICON_BOX_CORNERS_SMALL"))
+(defconstant ICON_BOX_CORNERS_BIG         (pragma::elong "ICON_BOX_CORNERS_BIG"))
+(defconstant ICON_FOUR_BOXES              (pragma::elong "ICON_FOUR_BOXES"))
+(defconstant ICON_GRID_FILL               (pragma::elong "ICON_GRID_FILL"))
+(defconstant ICON_BOX_MULTISIZE           (pragma::elong "ICON_BOX_MULTISIZE"))
+(defconstant ICON_ZOOM_SMALL              (pragma::elong "ICON_ZOOM_SMALL"))
+(defconstant ICON_ZOOM_MEDIUM             (pragma::elong "ICON_ZOOM_MEDIUM"))
+(defconstant ICON_ZOOM_BIG                (pragma::elong "ICON_ZOOM_BIG"))
+(defconstant ICON_ZOOM_ALL                (pragma::elong "ICON_ZOOM_ALL"))
+(defconstant ICON_ZOOM_CENTER             (pragma::elong "ICON_ZOOM_CENTER"))
+(defconstant ICON_BOX_DOTS_SMALL          (pragma::elong "ICON_BOX_DOTS_SMALL"))
+(defconstant ICON_BOX_DOTS_BIG            (pragma::elong "ICON_BOX_DOTS_BIG"))
+(defconstant ICON_BOX_CONCENTRIC          (pragma::elong "ICON_BOX_CONCENTRIC"))
+(defconstant ICON_BOX_GRID_BIG            (pragma::elong "ICON_BOX_GRID_BIG"))
+(defconstant ICON_OK_TICK                 (pragma::elong "ICON_OK_TICK"))
+(defconstant ICON_CROSS                   (pragma::elong "ICON_CROSS"))
+(defconstant ICON_ARROW_LEFT              (pragma::elong "ICON_ARROW_LEFT"))
+(defconstant ICON_ARROW_RIGHT             (pragma::elong "ICON_ARROW_RIGHT"))
+(defconstant ICON_ARROW_DOWN              (pragma::elong "ICON_ARROW_DOWN"))
+(defconstant ICON_ARROW_UP                (pragma::elong "ICON_ARROW_UP"))
+(defconstant ICON_ARROW_LEFT_FILL         (pragma::elong "ICON_ARROW_LEFT_FILL"))
+(defconstant ICON_ARROW_RIGHT_FILL        (pragma::elong "ICON_ARROW_RIGHT_FILL"))
+(defconstant ICON_ARROW_DOWN_FILL         (pragma::elong "ICON_ARROW_DOWN_FILL"))
+(defconstant ICON_ARROW_UP_FILL           (pragma::elong "ICON_ARROW_UP_FILL"))
+(defconstant ICON_AUDIO                   (pragma::elong "ICON_AUDIO"))
+(defconstant ICON_FX                      (pragma::elong "ICON_FX"))
+(defconstant ICON_WAVE                    (pragma::elong "ICON_WAVE"))
+(defconstant ICON_WAVE_SINUS              (pragma::elong "ICON_WAVE_SINUS"))
+(defconstant ICON_WAVE_SQUARE             (pragma::elong "ICON_WAVE_SQUARE"))
+(defconstant ICON_WAVE_TRIANGULAR         (pragma::elong "ICON_WAVE_TRIANGULAR"))
+(defconstant ICON_CROSS_SMALL             (pragma::elong "ICON_CROSS_SMALL"))
+(defconstant ICON_PLAYER_PREVIOUS         (pragma::elong "ICON_PLAYER_PREVIOUS"))
+(defconstant ICON_PLAYER_PLAY_BACK        (pragma::elong "ICON_PLAYER_PLAY_BACK"))
+(defconstant ICON_PLAYER_PLAY             (pragma::elong "ICON_PLAYER_PLAY"))
+(defconstant ICON_PLAYER_PAUSE            (pragma::elong "ICON_PLAYER_PAUSE"))
+(defconstant ICON_PLAYER_STOP             (pragma::elong "ICON_PLAYER_STOP"))
+(defconstant ICON_PLAYER_NEXT             (pragma::elong "ICON_PLAYER_NEXT"))
+(defconstant ICON_PLAYER_RECORD           (pragma::elong "ICON_PLAYER_RECORD"))
+(defconstant ICON_MAGNET                  (pragma::elong "ICON_MAGNET"))
+(defconstant ICON_LOCK_CLOSE              (pragma::elong "ICON_LOCK_CLOSE"))
+(defconstant ICON_LOCK_OPEN               (pragma::elong "ICON_LOCK_OPEN"))
+(defconstant ICON_CLOCK                   (pragma::elong "ICON_CLOCK"))
+(defconstant ICON_TOOLS                   (pragma::elong "ICON_TOOLS"))
+(defconstant ICON_GEAR                    (pragma::elong "ICON_GEAR"))
+(defconstant ICON_GEAR_BIG                (pragma::elong "ICON_GEAR_BIG"))
+(defconstant ICON_BIN                     (pragma::elong "ICON_BIN"))
+(defconstant ICON_HAND_POINTER            (pragma::elong "ICON_HAND_POINTER"))
+(defconstant ICON_LASER                   (pragma::elong "ICON_LASER"))
+(defconstant ICON_COIN                    (pragma::elong "ICON_COIN"))
+(defconstant ICON_EXPLOSION               (pragma::elong "ICON_EXPLOSION"))
+(defconstant ICON_1UP                     (pragma::elong "ICON_1UP"))
+(defconstant ICON_PLAYER                  (pragma::elong "ICON_PLAYER"))
+(defconstant ICON_PLAYER_JUMP             (pragma::elong "ICON_PLAYER_JUMP"))
+(defconstant ICON_KEY                     (pragma::elong "ICON_KEY"))
+(defconstant ICON_DEMON                   (pragma::elong "ICON_DEMON"))
+(defconstant ICON_TEXT_POPUP              (pragma::elong "ICON_TEXT_POPUP"))
+(defconstant ICON_GEAR_EX                 (pragma::elong "ICON_GEAR_EX"))
+(defconstant ICON_CRACK                   (pragma::elong "ICON_CRACK"))
+(defconstant ICON_CRACK_POINTS            (pragma::elong "ICON_CRACK_POINTS"))
+(defconstant ICON_STAR                    (pragma::elong "ICON_STAR"))
+(defconstant ICON_DOOR                    (pragma::elong "ICON_DOOR"))
+(defconstant ICON_EXIT                    (pragma::elong "ICON_EXIT"))
+(defconstant ICON_MODE_2D                 (pragma::elong "ICON_MODE_2D"))
+(defconstant ICON_MODE_3D                 (pragma::elong "ICON_MODE_3D"))
+(defconstant ICON_CUBE                    (pragma::elong "ICON_CUBE"))
+(defconstant ICON_CUBE_FACE_TOP           (pragma::elong "ICON_CUBE_FACE_TOP"))
+(defconstant ICON_CUBE_FACE_LEFT          (pragma::elong "ICON_CUBE_FACE_LEFT"))
+(defconstant ICON_CUBE_FACE_FRONT         (pragma::elong "ICON_CUBE_FACE_FRONT"))
+(defconstant ICON_CUBE_FACE_BOTTOM        (pragma::elong "ICON_CUBE_FACE_BOTTOM"))
+(defconstant ICON_CUBE_FACE_RIGHT         (pragma::elong "ICON_CUBE_FACE_RIGHT"))
+(defconstant ICON_CUBE_FACE_BACK          (pragma::elong "ICON_CUBE_FACE_BACK"))
+(defconstant ICON_CAMERA                  (pragma::elong "ICON_CAMERA"))
+(defconstant ICON_SPECIAL                 (pragma::elong "ICON_SPECIAL"))
+(defconstant ICON_LINK_NET                (pragma::elong "ICON_LINK_NET"))
+(defconstant ICON_LINK_BOXES              (pragma::elong "ICON_LINK_BOXES"))
+(defconstant ICON_LINK_MULTI              (pragma::elong "ICON_LINK_MULTI"))
+(defconstant ICON_LINK                    (pragma::elong "ICON_LINK"))
+(defconstant ICON_LINK_BROKE              (pragma::elong "ICON_LINK_BROKE"))
+(defconstant ICON_TEXT_NOTES              (pragma::elong "ICON_TEXT_NOTES"))
+(defconstant ICON_NOTEBOOK                (pragma::elong "ICON_NOTEBOOK"))
+(defconstant ICON_SUITCASE                (pragma::elong "ICON_SUITCASE"))
+(defconstant ICON_SUITCASE_ZIP            (pragma::elong "ICON_SUITCASE_ZIP"))
+(defconstant ICON_MAILBOX                 (pragma::elong "ICON_MAILBOX"))
+(defconstant ICON_MONITOR                 (pragma::elong "ICON_MONITOR"))
+(defconstant ICON_PRINTER                 (pragma::elong "ICON_PRINTER"))
+(defconstant ICON_PHOTO_CAMERA            (pragma::elong "ICON_PHOTO_CAMERA"))
+(defconstant ICON_PHOTO_CAMERA_FLASH      (pragma::elong "ICON_PHOTO_CAMERA_FLASH"))
+(defconstant ICON_HOUSE                   (pragma::elong "ICON_HOUSE"))
+(defconstant ICON_HEART                   (pragma::elong "ICON_HEART"))
+(defconstant ICON_CORNER                  (pragma::elong "ICON_CORNER"))
+(defconstant ICON_VERTICAL_BARS           (pragma::elong "ICON_VERTICAL_BARS"))
+(defconstant ICON_VERTICAL_BARS_FILL      (pragma::elong "ICON_VERTICAL_BARS_FILL"))
+(defconstant ICON_LIFE_BARS               (pragma::elong "ICON_LIFE_BARS"))
+(defconstant ICON_INFO                    (pragma::elong "ICON_INFO"))
+(defconstant ICON_CROSSLINE               (pragma::elong "ICON_CROSSLINE"))
+(defconstant ICON_HELP                    (pragma::elong "ICON_HELP"))
+(defconstant ICON_FILETYPE_ALPHA          (pragma::elong "ICON_FILETYPE_ALPHA"))
+(defconstant ICON_FILETYPE_HOME           (pragma::elong "ICON_FILETYPE_HOME"))
+(defconstant ICON_LAYERS_VISIBLE          (pragma::elong "ICON_LAYERS_VISIBLE"))
+(defconstant ICON_LAYERS                  (pragma::elong "ICON_LAYERS"))
+(defconstant ICON_WINDOW                  (pragma::elong "ICON_WINDOW"))
+(defconstant ICON_HIDPI                   (pragma::elong "ICON_HIDPI"))
+(defconstant ICON_FILETYPE_BINARY         (pragma::elong "ICON_FILETYPE_BINARY"))
+(defconstant ICON_HEX                     (pragma::elong "ICON_HEX"))
+(defconstant ICON_SHIELD                  (pragma::elong "ICON_SHIELD"))
+(defconstant ICON_FILE_NEW                (pragma::elong "ICON_FILE_NEW"))
+(defconstant ICON_FOLDER_ADD              (pragma::elong "ICON_FOLDER_ADD"))
+(defconstant ICON_ALARM                   (pragma::elong "ICON_ALARM"))
+(defconstant ICON_CPU                     (pragma::elong "ICON_CPU"))
+(defconstant ICON_ROM                     (pragma::elong "ICON_ROM"))
+(defconstant ICON_STEP_OVER               (pragma::elong "ICON_STEP_OVER"))
+(defconstant ICON_STEP_INTO               (pragma::elong "ICON_STEP_INTO"))
+(defconstant ICON_STEP_OUT                (pragma::elong "ICON_STEP_OUT"))
+(defconstant ICON_RESTART                 (pragma::elong "ICON_RESTART"))
+(defconstant ICON_BREAKPOINT_ON           (pragma::elong "ICON_BREAKPOINT_ON"))
+(defconstant ICON_BREAKPOINT_OFF          (pragma::elong "ICON_BREAKPOINT_OFF"))
+(defconstant ICON_BURGER_MENU             (pragma::elong "ICON_BURGER_MENU"))
+(defconstant ICON_CASE_SENSITIVE          (pragma::elong "ICON_CASE_SENSITIVE"))
+(defconstant ICON_REG_EXP                 (pragma::elong "ICON_REG_EXP"))
+(defconstant ICON_FOLDER                  (pragma::elong "ICON_FOLDER"))
+(defconstant ICON_FILE                    (pragma::elong "ICON_FILE"))
+(defconstant ICON_SAND_TIMER              (pragma::elong "ICON_SAND_TIMER"))
+(defconstant ICON_220                     (pragma::elong "ICON_220"))
+(defconstant ICON_221                     (pragma::elong "ICON_221"))
+(defconstant ICON_222                     (pragma::elong "ICON_222"))
+(defconstant ICON_223                     (pragma::elong "ICON_223"))
+(defconstant ICON_224                     (pragma::elong "ICON_224"))
+(defconstant ICON_225                     (pragma::elong "ICON_225"))
+(defconstant ICON_226                     (pragma::elong "ICON_226"))
+(defconstant ICON_227                     (pragma::elong "ICON_227"))
+(defconstant ICON_228                     (pragma::elong "ICON_228"))
+(defconstant ICON_229                     (pragma::elong "ICON_229"))
+(defconstant ICON_230                     (pragma::elong "ICON_230"))
+(defconstant ICON_231                     (pragma::elong "ICON_231"))
+(defconstant ICON_232                     (pragma::elong "ICON_232"))
+(defconstant ICON_233                     (pragma::elong "ICON_233"))
+(defconstant ICON_234                     (pragma::elong "ICON_234"))
+(defconstant ICON_235                     (pragma::elong "ICON_235"))
+(defconstant ICON_236                     (pragma::elong "ICON_236"))
+(defconstant ICON_237                     (pragma::elong "ICON_237"))
+(defconstant ICON_238                     (pragma::elong "ICON_238"))
+(defconstant ICON_239                     (pragma::elong "ICON_239"))
+(defconstant ICON_240                     (pragma::elong "ICON_240"))
+(defconstant ICON_241                     (pragma::elong "ICON_241"))
+(defconstant ICON_242                     (pragma::elong "ICON_242"))
+(defconstant ICON_243                     (pragma::elong "ICON_243"))
+(defconstant ICON_244                     (pragma::elong "ICON_244"))
+(defconstant ICON_245                     (pragma::elong "ICON_245"))
+(defconstant ICON_246                     (pragma::elong "ICON_246"))
+(defconstant ICON_247                     (pragma::elong "ICON_247"))
+(defconstant ICON_248                     (pragma::elong "ICON_248"))
+(defconstant ICON_249                     (pragma::elong "ICON_249"))
+(defconstant ICON_250                     (pragma::elong "ICON_250"))
+(defconstant ICON_251                     (pragma::elong "ICON_251"))
+(defconstant ICON_252                     (pragma::elong "ICON_252"))
+(defconstant ICON_253                     (pragma::elong "ICON_253"))
+(defconstant ICON_254                     (pragma::elong "ICON_254"))
+(defconstant ICON_255                     (pragma::elong "ICON_255"))
+
 ; Style set/get functions
 
 (defbuiltin (guisetstyle control property value)
@@ -118,6 +636,19 @@
             (pragma::elong "GuiGetStyle((int)$1, (int)$2)"
                            ($belong->elong control)
                            ($belong->elong property)))))
+
+; Icons functionality
+
+(defbuiltin (guiicontext iconId text)
+    (unless (elong? iconId)
+        (set! iconId (mkelongw 'GuiIconText 1 iconId)))
+    (when iconId
+        (unless (string? text)
+            (set! text (mkstrw 'GuiIconText 2 text)))
+        (when text
+            (pragma::string "(char *)GuiIconText((int)$1, $2)"
+                            ($belong->elong iconId)
+                            ($bstring->string text)))))
 
 ; Container/separator controls, useful for controls organization
 
