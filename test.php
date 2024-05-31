@@ -112,6 +112,10 @@ while (!$exitWindow)
             $dropdownBox000EditMode = !$dropdownBox000EditMode;
         }
 
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
+        GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
+
         if ($showMessageBox) {
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(RAYWHITE, 0.8));
             $result = GuiMessageBox(
