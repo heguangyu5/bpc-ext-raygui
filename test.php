@@ -65,6 +65,10 @@ $viewScroll = array(0, 0);
 
 $alphaValue = 0.5;
 
+$textBoxMultiText = str_pad("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n\nThisisastringlongerthanexpectedwithoutspacestotestcharbreaksforthosecases,checkingifworkingasexpected.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 1024, "\0");
+$textBoxMultiFilledLen = 0;
+$textBoxMultiEditMode = false;
+
 while (!$exitWindow)
 {
     // Update
@@ -161,6 +165,14 @@ while (!$exitWindow)
         GuiGrid(array(560, 400, 100, 120), 20, 3, $mouseCell);
 
         GuiColorBarAlpha(array(320, 490, 200, 30), $alphaValue);
+
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT_VERTICAL, TEXT_ALIGN_TOP);
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_WRAP_MODE, TEXT_WRAP_WORD);
+        if (GuiTextBox(array(678, 25, 258, 492), $textBoxMultiText, $textBoxMultiFilledLen, $textBoxMultiEditMode)) {
+            $textBoxMultiEditMode = !$textBoxMultiEditMode;
+        }
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_WRAP_MODE, TEXT_WRAP_NONE);
+        GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT_VERTICAL, TEXT_ALIGN_MIDDLE);
 
         GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");
