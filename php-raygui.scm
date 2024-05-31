@@ -413,7 +413,7 @@
         (guitextinputbox bounds title message buttons textBuf filledLen secretViewActive)
         (guicolorpicker bounds text color)
         (guicolorpanel bounds text color)
-        (guicolorbaralpha bounds text alpha)
+        (guicolorbaralpha bounds alpha)
         (guicolorbarhue bounds text value)
         (guicolorpickerhsv bounds text colorHsv)
         (guicolorpanelhsv bounds text colorHsv)
@@ -1522,20 +1522,17 @@
                     (container-value-set! color (%mkcolor-c "c"))
                     NULL)))))
 
-(defbuiltin (guicolorbaralpha bounds text (ref . alpha))
+(defbuiltin (guicolorbaralpha bounds (ref . alpha))
     (%with-c-bounds 'GuiColorBarAlpha
-        (unless (string? text)
-            (set! text (mkstrw 'GuiColorBarAlpha 2 text)))
-        (when text
-            (let ((alpha-val (container-value alpha)))
-                (unless (flonum? alpha-val)
-                    (set! alpha-val (mkflonumw 'GuiColorBarAlpha 3 alpha-val)))
-                (when alpha-val
-                    (pragma "float alpha")
-                    (pragma "alpha = (float)$1" ($real->double alpha-val))
-                    (pragma "GuiColorBarAlpha(bounds, $1, &alpha)" ($bstring->string text))
-                    (container-value-set! alpha (pragma::double "alpha"))
-                    NULL)))))
+        (let ((alpha-val (container-value alpha)))
+            (unless (flonum? alpha-val)
+                (set! alpha-val (mkflonumw 'GuiColorBarAlpha 3 alpha-val)))
+            (when alpha-val
+                (pragma "float alpha")
+                (pragma "alpha = (float)$1" ($real->double alpha-val))
+                (pragma "GuiColorBarAlpha(bounds, NULL, &alpha)")
+                (container-value-set! alpha (pragma::double "alpha"))
+                NULL))))
 
 (defbuiltin (guicolorbarhue bounds text (ref . value))
     (%with-c-bounds 'GuiColorBarHue

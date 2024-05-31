@@ -61,6 +61,10 @@ $sliderValue = 50;
 $sliderBarValue = 60;
 $progressValue = 0.1;
 
+$viewScroll = array(0, 0);
+
+$alphaValue = 0.5;
+
 while (!$exitWindow)
 {
     // Update
@@ -152,6 +156,11 @@ while (!$exitWindow)
         GuiSlider(array(355, 400, 165, 20), "TEST", sprintf("%2.2f", $sliderValue), $sliderValue, -50, 100);
         GuiSliderBar(array(320, 430, 200, 20), NULL, (int)$sliderBarValue, $sliderBarValue, 0, 100);
         GuiProgressBar(array(320, 460, 200, 20), NULL, ((int)($progressValue * 100)) . '%', $progressValue, 0, 1);
+
+        GuiScrollPanel(array(560, 25, 102, 354), NULL, array(560, 25, 300, 1200), $viewScroll, $view);
+        GuiGrid(array(560, 400, 100, 120), 20, 3, $mouseCell);
+
+        GuiColorBarAlpha(array(320, 490, 200, 30), $alphaValue);
 
         GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");
