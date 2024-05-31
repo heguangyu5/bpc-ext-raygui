@@ -1477,14 +1477,16 @@
 
 (defbuiltin (guicolorpicker bounds text (ref . color))
     (%with-c-bounds 'GuiColorPicker
-        (unless (string? text)
+        (unless (or (null? text)
+                    (string? text))
             (set! text (mkstrw 'GuiColorPicker 2 text)))
         (when text
             (let ((color-val (container-value color)))
                 (pragma "Color c")
                 (when (or (null? color-val)
                           (%init-c-color 'GuiColorPicker 3 color-val "c"))
-                    (pragma "GuiColorPicker(bounds, $1, &c)" ($bstring->string text))
+                    (pragma "GuiColorPicker(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &c)"
+                            text)
                     (container-value-set! color (%mkcolor-c "c"))
                     NULL)))))
 

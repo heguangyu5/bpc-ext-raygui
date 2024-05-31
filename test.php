@@ -53,6 +53,10 @@ $listViewExItems = array("This", "is", "a", "list view", "with", "disable", "ele
 $toggleGroupActive = 0;
 $toggleSliderActive = 0;
 
+// Third GUI column
+
+$colorPickerValue = RED;
+
 while (!$exitWindow)
 {
     // Update
@@ -136,6 +140,10 @@ while (!$exitWindow)
         GuiSetStyle(SLIDER, SLIDER_PADDING, 2);
         GuiToggleSlider(array(165, 480, 140, 30), "ON;OFF", $toggleSliderActive);
         GuiSetStyle(SLIDER, SLIDER_PADDING, 0);
+
+        // Third GUI column ---------------------------------------------
+        GuiPanel(array(320, 25, 225, 140), "Panel Info");
+        GuiColorPicker(array(320, 185, 196, 192), NULL, $colorPickerValue);
 
         GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");
