@@ -1242,10 +1242,12 @@
 
 (defbuiltin (guislider bounds textLeft textRight (ref . value) minValue maxValue)
     (%with-c-bounds 'GuiSlider
-        (unless (string? textLeft)
+        (unless (or (null? textLeft)
+                    (string? textLeft))
             (set! textLeft (mkstrw 'GuiSlider 2 textLeft)))
         (when textLeft
-            (unless (string? textRight)
+            (unless (or (null? textRight)
+                        (string? textRight))
                 (set! textRight (mkstrw 'GuiSlider 3 textRight)))
             (when textRight
                 (let ((value-val (container-value value)))
@@ -1260,9 +1262,14 @@
                             (when maxValue
                                 (pragma "float value")
                                 (pragma "value = (float)$1" ($real->double value-val))
-                                (pragma "GuiSlider(bounds, $1, $2, &value, (float)$3, (float)$4)"
-                                        ($bstring->string textLeft)
-                                        ($bstring->string textRight)
+                                (pragma "GuiSlider(bounds,
+                                                   NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                                   NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                                   &value,
+                                                   (float)$3,
+                                                   (float)$4)"
+                                        textLeft
+                                        textRight
                                         ($real->double minValue)
                                         ($real->double maxValue))
                                 (container-value-set! value (pragma::double "value"))
@@ -1270,10 +1277,12 @@
 
 (defbuiltin (guisliderbar bounds textLeft textRight (ref . value) minValue maxValue)
     (%with-c-bounds 'GuiSliderBar
-        (unless (string? textLeft)
+        (unless (or (null? textLeft)
+                    (string? textLeft))
             (set! textLeft (mkstrw 'GuiSliderBar 2 textLeft)))
         (when textLeft
-            (unless (string? textRight)
+            (unless (or (null? textRight)
+                        (string? textRight))
                 (set! textRight (mkstrw 'GuiSliderBar 3 textRight)))
             (when textRight
                 (let ((value-val (container-value value)))
@@ -1288,41 +1297,51 @@
                             (when maxValue
                                 (pragma "float value")
                                 (pragma "value = (float)$1" ($real->double value-val))
-                                (pragma "GuiSliderBar(bounds, $1, $2, &value, (float)$3, (float)$4)"
-                                        ($bstring->string textLeft)
-                                        ($bstring->string textRight)
+                                (pragma "GuiSliderBar(bounds,
+                                                      NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                                      NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                                      &value,
+                                                      (float)$3,
+                                                      (float)$4)"
+                                        textLeft
+                                        textRight
                                         ($real->double minValue)
                                         ($real->double maxValue))
                                 (container-value-set! value (pragma::double "value"))
                                 NULL))))))))
 
-(defbuiltin (guiprogressbar bounds textLeft textRight (ref . value) minValue maxValue)
+(defbuiltin (guiprogressbar bounds textLeft textRight value minValue maxValue)
     (%with-c-bounds 'GuiProgressBar
-        (unless (string? textLeft)
+        (unless (or (null? textLeft)
+                    (string? textLeft))
             (set! textLeft (mkstrw 'GuiProgressBar 2 textLeft)))
         (when textLeft
-            (unless (string? textRight)
+            (unless (or (null? textRight)
+                        (string? textRight))
                 (set! textRight (mkstrw 'GuiProgressBar 3 textRight)))
             (when textRight
-                (let ((value-val (container-value value)))
-                    (unless (flonum? value-val)
-                        (set! value-val (mkflonumw 'GuiProgressBar 4 value-val)))
-                    (when value-val
-                        (unless (flonum? minValue)
-                            (set! minValue (mkflonumw 'GuiProgressBar 5 minValue)))
-                        (when minValue
-                            (unless (flonum? maxValue)
-                                (set! maxValue (mkflonumw 'GuiProgressBar 6 maxValue)))
-                            (when maxValue
-                                (pragma "float value")
-                                (pragma "value = (float)$1" ($real->double value-val))
-                                (pragma "GuiProgressBar(bounds, $1, $2, &value, (float)$3, (float)$4)"
-                                        ($bstring->string textLeft)
-                                        ($bstring->string textRight)
-                                        ($real->double minValue)
-                                        ($real->double maxValue))
-                                (container-value-set! value (pragma::double "value"))
-                                NULL))))))))
+                (unless (flonum? value)
+                    (set! value (mkflonumw 'GuiProgressBar 4 value)))
+                (when value
+                    (unless (flonum? minValue)
+                        (set! minValue (mkflonumw 'GuiProgressBar 5 minValue)))
+                    (when minValue
+                        (unless (flonum? maxValue)
+                            (set! maxValue (mkflonumw 'GuiProgressBar 6 maxValue)))
+                        (when maxValue
+                            (pragma "float value")
+                            (pragma "value = (float)$1" ($real->double value))
+                            (pragma "GuiProgressBar(bounds,
+                                                    NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                                    NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                                    &value,
+                                                    (float)$3,
+                                                    (float)$4)"
+                                    textLeft
+                                    textRight
+                                    ($real->double minValue)
+                                    ($real->double maxValue))
+                            NULL)))))))
 
 (defbuiltin (guistatusbar bounds text)
     (%with-c-bounds 'GuiStatusBar
