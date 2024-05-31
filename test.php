@@ -50,6 +50,9 @@ $listViewExActive = 2;
 $listViewExFocus = -1;
 $listViewExItems = array("This", "is", "a", "list view", "with", "disable", "elements", "amazing!");
 
+$toggleGroupActive = 0;
+$toggleSliderActive = 0;
+
 while (!$exitWindow)
 {
     // Update
@@ -128,6 +131,11 @@ while (!$exitWindow)
 
         GuiListView(array(165, 25, 140, 124), "Charmander;Bulbasaur;#18#Squirtel;Pikachu;Eevee;Pidgey", $listViewScrollIndex, $listViewActive);
         GuiListViewEx(array(165, 162, 140, 184), $listViewExItems, $listViewExScrollIndex, $listViewExActive, $listViewExFocus);
+
+        GuiToggleGroup(array(165, 360, 140, 24), "#1#ONE\n#3#TWO\n#8#THREE\n#23#", $toggleGroupActive);
+        GuiSetStyle(SLIDER, SLIDER_PADDING, 2);
+        GuiToggleSlider(array(165, 480, 140, 30), "ON;OFF", $toggleSliderActive);
+        GuiSetStyle(SLIDER, SLIDER_PADDING, 0);
 
         GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");

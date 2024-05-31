@@ -68,6 +68,44 @@
         TEXT_LINE_SPACING
         TEXT_ALIGNMENT_VERTICAL
         TEXT_WRAP_MODE
+        ; enum GuiToggleProperty
+        GROUP_PADDING
+        ; enum GuiSliderProperty
+        SLIDER_WIDTH
+        SLIDER_PADDING
+        ; enum GuiProgressBarProperty
+        PROGRESS_PADDING
+        ; enum GuiScrollBarProperty
+        ARROWS_SIZE
+        ARROWS_VISIBLE
+        SCROLL_SLIDER_PADDING
+        SCROLL_SLIDER_SIZE
+        SCROLL_PADDING
+        SCROLL_SPEED
+        ; enum GuiCheckBoxProperty
+        CHECK_PADDING
+        ; enum GuiComboBoxProperty
+        COMBO_BUTTON_WIDTH
+        COMBO_BUTTON_SPACING
+        ; enum GuiDropdownBoxProperty
+        ARROW_PADDING
+        DROPDOWN_ITEMS_SPACING
+        ; enum GuiTextBoxProperty
+        TEXT_READONLY
+        ; enum GuiSpinnerProperty
+        SPIN_BUTTON_WIDTH
+        SPIN_BUTTON_SPACING
+        ; enum GuiListViewProperty
+        LIST_ITEMS_HEIGHT
+        LIST_ITEMS_SPACING
+        SCROLLBAR_WIDTH
+        SCROLLBAR_SIDE
+        ; enum GuiColorPickerProperty
+        COLOR_SELECTOR_SIZE
+        HUEBAR_WIDTH
+        HUEBAR_PADDING
+        HUEBAR_SELECTOR_HEIGHT
+        HUEBAR_SELECTOR_OVERFLOW
         ; enum GuiIconName
         ICON_NONE
         ICON_FOLDER_FILE_OPEN
@@ -466,6 +504,67 @@
 (defconstant TEXT_LINE_SPACING          (pragma::elong "TEXT_LINE_SPACING"))
 (defconstant TEXT_ALIGNMENT_VERTICAL    (pragma::elong "TEXT_ALIGNMENT_VERTICAL"))
 (defconstant TEXT_WRAP_MODE             (pragma::elong "TEXT_WRAP_MODE"))
+
+
+; enum GuiToggleProperty
+
+(defconstant GROUP_PADDING (pragma::elong "GROUP_PADDING"))
+
+; enum GuiSliderProperty
+
+(defconstant SLIDER_WIDTH   (pragma::elong "SLIDER_WIDTH"))
+(defconstant SLIDER_PADDING (pragma::elong "SLIDER_PADDING"))
+
+; enum GuiProgressBarProperty
+
+(defconstant PROGRESS_PADDING (pragma::elong "PROGRESS_PADDING"))
+
+; enum GuiScrollBarProperty
+
+(defconstant ARROWS_SIZE           (pragma::elong "ARROWS_SIZE"))
+(defconstant ARROWS_VISIBLE        (pragma::elong "ARROWS_VISIBLE"))
+(defconstant SCROLL_SLIDER_PADDING (pragma::elong "SCROLL_SLIDER_PADDING"))
+(defconstant SCROLL_SLIDER_SIZE    (pragma::elong "SCROLL_SLIDER_SIZE"))
+(defconstant SCROLL_PADDING        (pragma::elong "SCROLL_PADDING"))
+(defconstant SCROLL_SPEED          (pragma::elong "SCROLL_SPEED"))
+
+; enum GuiCheckBoxProperty
+
+(defconstant CHECK_PADDING (pragma::elong "CHECK_PADDING"))
+
+; enum GuiComboBoxProperty
+
+(defconstant COMBO_BUTTON_WIDTH     (pragma::elong "COMBO_BUTTON_WIDTH"))
+(defconstant COMBO_BUTTON_SPACING   (pragma::elong "COMBO_BUTTON_SPACING"))
+
+; enum GuiDropdownBoxProperty
+
+(defconstant ARROW_PADDING          (pragma::elong "ARROW_PADDING"))
+(defconstant DROPDOWN_ITEMS_SPACING (pragma::elong "DROPDOWN_ITEMS_SPACING"))
+
+; enum GuiTextBoxProperty
+
+(defconstant TEXT_READONLY (pragma::elong "TEXT_READONLY"))
+
+; enum GuiSpinnerProperty
+
+(defconstant SPIN_BUTTON_WIDTH   (pragma::elong "SPIN_BUTTON_WIDTH"))
+(defconstant SPIN_BUTTON_SPACING (pragma::elong "SPIN_BUTTON_SPACING"))
+
+; enum GuiListViewProperty
+
+(defconstant LIST_ITEMS_HEIGHT  (pragma::elong "LIST_ITEMS_HEIGHT"))
+(defconstant LIST_ITEMS_SPACING (pragma::elong "LIST_ITEMS_SPACING"))
+(defconstant SCROLLBAR_WIDTH    (pragma::elong "SCROLLBAR_WIDTH"))
+(defconstant SCROLLBAR_SIDE     (pragma::elong "SCROLLBAR_SIDE"))
+
+; enum GuiColorPickerProperty
+
+(defconstant COLOR_SELECTOR_SIZE      (pragma::elong "COLOR_SELECTOR_SIZE"))
+(defconstant HUEBAR_WIDTH             (pragma::elong "HUEBAR_WIDTH"))
+(defconstant HUEBAR_PADDING           (pragma::elong "HUEBAR_PADDING"))
+(defconstant HUEBAR_SELECTOR_HEIGHT   (pragma::elong "HUEBAR_SELECTOR_HEIGHT"))
+(defconstant HUEBAR_SELECTOR_OVERFLOW (pragma::elong "HUEBAR_SELECTOR_OVERFLOW"))
 
 ; enum GuiIconName
 
