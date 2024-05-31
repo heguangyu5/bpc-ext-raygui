@@ -7,6 +7,8 @@ SetTargetFPS(60);
 $exitWindow = false;
 $showMessageBox = false;
 
+// First GUI column
+
 $dropdownBox000Active = 0;
 $dropdownBox000EditMode = false;
 
@@ -37,6 +39,16 @@ foreach ($styleFiles as $file) {
     $styleNames[] = substr($file, strlen('styles/style_'), -4);
 }
 $styleNames = implode(';', $styleNames);
+
+// Second GUI column
+
+$listViewScrollIndex = 0;
+$listViewActive = -1;
+
+$listViewExScrollIndex = 0;
+$listViewExActive = 2;
+$listViewExFocus = -1;
+$listViewExItems = array("This", "is", "a", "list view", "with", "disable", "elements", "amazing!");
 
 while (!$exitWindow)
 {
@@ -111,6 +123,11 @@ while (!$exitWindow)
         if (GuiDropdownBox(array(25, 25, 125, 30), "ONE;TWO;THREE", $dropdownBox000Active, $dropdownBox000EditMode)) {
             $dropdownBox000EditMode = !$dropdownBox000EditMode;
         }
+
+        // Second GUI column ---------------------------------------------
+
+        GuiListView(array(165, 25, 140, 124), "Charmander;Bulbasaur;#18#Squirtel;Pikachu;Eevee;Pidgey", $listViewScrollIndex, $listViewActive);
+        GuiListViewEx(array(165, 162, 140, 184), $listViewExItems, $listViewExScrollIndex, $listViewExActive, $listViewExFocus);
 
         GuiSetStyle(GUI_CONTROL_DEFAULT, TEXT_ALIGNMENT, TEXT_ALIGN_LEFT);
         GuiStatusBar(array(0, GetScreenHeight() - 20, GetScreenWidth(), 20), "This is a status bar");
