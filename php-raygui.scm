@@ -848,16 +848,12 @@
     (pragma::bool "GuiIsLocked()"))
 
 (defbuiltin (guisetalpha alpha)
-    (unless (flonum? alpha)
-        (set! alpha (mkflonumw 'GuiSetAlpha 1 alpha)))
-    (when alpha
+    (ensure-flonum 'GuiSetAlpha alpha 1
         (pragma "GuiSetAlpha((float)$1)" ($real->double alpha))
         NULL))
 
 (defbuiltin (guisetstate state)
-    (unless (elong? state)
-        (set! state (mkelongw 'GuiSetState 1 state)))
-    (when state
+    (ensure-elong 'GuiSetState state 1
         (pragma "GuiSetState((int)$1)" ($belong->elong state))
         NULL))
 
@@ -867,37 +863,23 @@
 ; Style set/get functions
 
 (defbuiltin (guisetstyle control property value)
-    (unless (elong? control)
-        (set! control (mkelongw 'GuiSetStyle 1 control)))
-    (when control
-        (unless (elong? property)
-            (set! property (mkelongw 'GuiSetStyle 2 property)))
-        (when property
-            (unless (elong? value)
-                (set! value (mkelongw 'GuiSetStyle 3 value)))
-            (when value
-                (pragma "GuiSetStyle((int)$1, (int)$2, (int)$3)"
-                        ($belong->elong control)
-                        ($belong->elong property)
-                        ($belong->elong value))
-                NULL))))
+    (ensure-elongs 'GuiSetStyle (control property value) 1
+        (pragma "GuiSetStyle((int)$1, (int)$2, (int)$3)"
+                ($belong->elong control)
+                ($belong->elong property)
+                ($belong->elong value))
+        NULL))
 
 (defbuiltin (guigetstyle control property)
-    (unless (elong? control)
-        (set! control (mkelongw 'GuiGetStyle 1 control)))
-    (when control
-        (unless (elong? property)
-            (set! property (mkelongw 'GuiGetStyle 2 property)))
-        (when property
-            (pragma::elong "GuiGetStyle((int)$1, (int)$2)"
-                           ($belong->elong control)
-                           ($belong->elong property)))))
+    (ensure-elongs 'GuiGetStyle (control property) 1
+        (pragma::elong "GuiGetStyle((int)$1, (int)$2)"
+                       ($belong->elong control)
+                       ($belong->elong property))))
 
 ; Styles loading functions
 
 (defbuiltin (guiloadstyle fileName)
-    (set! fileName (mkpathw 'GuiLoadStyle 1 fileName))
-    (when fileName
+    (ensure-path 'GuiLoadStyle fileName 1
         (pragma "GuiLoadStyle($1)" ($bstring->string fileName))
         NULL))
 
@@ -908,12 +890,8 @@
 ; Icons functionality
 
 (defbuiltin (guiicontext iconId text)
-    (unless (elong? iconId)
-        (set! iconId (mkelongw 'GuiIconText 1 iconId)))
-    (when iconId
-        (unless (string? text)
-            (set! text (mkstrw 'GuiIconText 2 text)))
-        (when text
+    (ensure-elong 'GuiIconText iconId 1
+        (ensure-str 'GuiIconText text 2
             (pragma::string "(char *)GuiIconText((int)$1, $2)"
                             ($belong->elong iconId)
                             ($bstring->string text)))))
@@ -931,8 +909,7 @@
         (pragma "const char **text = NULL;
                  int count = 0")
         (unless (null? ,arg)
-            (set! ,arg (mkhashw ,func-name ,arg-idx ,arg))
-            (when ,arg
+            (ensure-hash ,func-name ,arg ,arg-idx
                 (let ((size (php-hash-size ,arg)))
                     (when (>fx size 0)
                         (pragma "text = (const char **)GC_MALLOC_ATOMIC(sizeof(char *) * $1)"
@@ -954,58 +931,33 @@
 ; return #t if close button clicked
 (defbuiltin (guiwindowbox bounds title)
     (%with-c-bounds 'GuiWindowBox
-        (unless (string? title)
-            (set! title (mkstrw 'GuiWindowBox 2 title)))
-        (when title
+        (ensure-str 'GuiWindowBox title 2
             (pragma::bool "GuiWindowBox(bounds, $1)" ($bstring->string title)))))
 
 (defbuiltin (guigroupbox bounds (text NULL))
     (%with-c-bounds 'GuiGroupBox
-        (if (null? text)
-            (begin
-                (pragma "GuiGroupBox(bounds, NULL)")
-                NULL)
-            (begin
-                (unless (string? text)
-                    (set! text (mkstrw 'GuiGroupBox 2 text)))
-                (when text
-                    (pragma "GuiGroupBox(bounds, $1)" ($bstring->string text))
-                    NULL)))))
+        (ensure-nullable-str 'GuiGroupBox text 2
+            (pragma "GuiGroupBox(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1))" text)
+            NULL)))
 
 (defbuiltin (guiline bounds (text NULL))
     (%with-c-bounds 'GuiLine
-        (if (null? text)
-            (begin
-                (pragma "GuiLine(bounds, NULL)")
-                NULL)
-            (begin
-                (unless (string? text)
-                    (set! text (mkstrw 'GuiLine 2 text)))
-                (when text
-                    (pragma "GuiLine(bounds, $1)" ($bstring->string text))
-                    NULL)))))
+        (ensure-nullable-str 'GuiLine text 2
+            (pragma "GuiLine(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1))" text)
+            NULL)))
 
 (defbuiltin (guipanel bounds (text NULL))
     (%with-c-bounds 'GuiPanel
-        (if (null? text)
-            (begin
-                (pragma "GuiPanel(bounds, NULL)")
-                NULL)
-            (begin
-                (unless (string? text)
-                    (set! text (mkstrw 'GuiPanel 2 text)))
-                (when text
-                    (pragma "GuiPanel(bounds, $1)" ($bstring->string text))
-                    NULL)))))
+        (ensure-nullable-str 'GuiPanel text 2
+            (pragma "GuiPanel(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1))" text)
+            NULL)))
 
 ; return tab index to be closed
 (defbuiltin (guitabbar bounds tabs (ref . active))
     (%with-c-bounds 'GuiTabBar
         (%with-c-text-list 'GuiTabBar 2 tabs
             (let ((active-idx (container-value active)))
-                (unless (elong? active-idx)
-                    (set! active-idx (mkelongw 'GuiTabBar 3 active-idx)))
-                (when active-idx
+                (ensure-elong 'GuiTabBar active-idx 3
                     (pragma "int active")
                     (pragma "active = (int)$1" ($belong->elong active-idx))
                     (pragma "int result = GuiTabBar(bounds, text, count, &active)")
@@ -1014,10 +966,7 @@
 
 (defbuiltin (guiscrollpanel bounds text content (ref . scroll) ((ref . view) unpassed))
     (%with-c-bounds 'GuiScrollPanel
-        (unless (or (null? text)
-                    (string? text))
-                (set! text (mkstrw 'GuiScrollPanel 2 text)))
-        (when text
+        (ensure-nullable-str 'GuiScrollPanel text 2
             (pragma "Rectangle content")
             (when (%init-c-rect 'GuiScrollPanel 3 content "content")
                 (pragma "Vector2 scroll = {0.0f, 0.0f}")
@@ -1041,33 +990,25 @@
 
 (defbuiltin (guilabel bounds text)
     (%with-c-bounds 'GuiLabel
-        (unless (string? text)
-            (set! text (mkstrw 'GuiLabel 2 text)))
-        (when text
+        (ensure-str 'GuiLabel text 2
             (pragma "GuiLabel(bounds, $1)" ($bstring->string text))
             NULL)))
 
 ; return #t if button clicked
 (defbuiltin (guibutton bounds text)
     (%with-c-bounds 'GuiButton
-        (unless (string? text)
-            (set! text (mkstrw 'GuiButton 2 text)))
-        (when text
+        (ensure-str 'GuiButton text 2
             (pragma::bool "GuiButton(bounds, $1)" ($bstring->string text)))))
 
 ; return #t if label button clicked
 (defbuiltin (guilabelbutton bounds text)
     (%with-c-bounds 'GuiLabelButton
-        (unless (string? text)
-            (set! text (mkstrw 'GuiLabelButton 2 text)))
-        (when text
+        (ensure-str 'GuiLabelButton text 2
             (pragma::bool "GuiLabelButton(bounds, $1)" ($bstring->string text)))))
 
 (defbuiltin (guitoggle bounds text (ref . active))
     (%with-c-bounds 'GuiToggle
-        (unless (string? text)
-            (set! text (mkstrw 'GuiToggle 2 text)))
-        (when text
+        (ensure-str 'GuiToggle text 2
             (let ((active-val (container-value active)))
                 (unless (boolean? active-val)
                     (set! active-val (mkboolw 'GuiToggle 3 active-val)))
@@ -1080,13 +1021,9 @@
 
 (defbuiltin (guitogglegroup bounds text (ref . active))
     (%with-c-bounds 'GuiToggleGroup
-        (unless (string? text)
-            (set! text (mkstrw 'GuiToggleGroup 2 text)))
-        (when text
+        (ensure-str 'GuiToggleGroup text 2
             (let ((active-idx (container-value active)))
-                (unless (elong? active-idx)
-                    (set! active-idx (mkelongw 'GuiToggleGroup 3 active-idx)))
-                (when active-idx
+                (ensure-elong 'GuiToggleGroup active-idx 3
                     (pragma "int active")
                     (pragma "active = (int)$1" ($belong->elong active-idx))
                     (pragma "GuiToggleGroup(bounds, $1, &active)" ($bstring->string text))
@@ -1096,13 +1033,9 @@
 ; return #t when clicked
 (defbuiltin (guitoggleslider bounds text (ref . active))
     (%with-c-bounds 'GuiToggleSlider
-        (unless (string? text)
-            (set! text (mkstrw 'GuiToggleSlider 2 text)))
-        (when text
+        (ensure-str 'GuiToggleSlider text 2
             (let ((active-idx (container-value active)))
-                (unless (elong? active-idx)
-                    (set! active-idx (mkelongw 'GuiToggleSlider 3 active-idx)))
-                (when active-idx
+                (ensure-elong 'GuiToggleSlider active-idx 3
                     (pragma "int active")
                     (pragma "active = (int)$1" ($belong->elong active-idx))
                     (pragma "int result")
@@ -1112,9 +1045,7 @@
 
 (defbuiltin (guicheckbox bounds text (ref . checked))
     (%with-c-bounds 'GuiCheckBox
-        (unless (string? text)
-            (set! text (mkstrw 'GuiCheckBox 2 text)))
-        (when text
+        (ensure-str 'GuiCheckBox text 2
             (let ((checked-val (container-value checked)))
                 (unless (boolean? checked-val)
                     (set! checked-val (mkboolw 'GuiCheckBox 3 checked-val)))
@@ -1127,13 +1058,9 @@
 
 (defbuiltin (guicombobox bounds text (ref . active))
     (%with-c-bounds 'GuiComboBox
-        (unless (string? text)
-            (set! text (mkstrw 'GuiComboBox 2 text)))
-        (when text
+        (ensure-str 'GuiComboBox text 2
             (let ((active-idx (container-value active)))
-                (unless (elong? active-idx)
-                    (set! active-idx (mkelongw 'GuiComboBox 3 active-idx)))
-                (when active-idx
+                (ensure-elong 'GuiComboBox active-idx 3
                     (pragma "int active")
                     (pragma "active = (int)$1" ($belong->elong active-idx))
                     (pragma "GuiComboBox(bounds, $1, &active)" ($bstring->string text))
@@ -1143,9 +1070,7 @@
 ; return #t when clicked
 (defbuiltin (guidropdownbox bounds text (ref . active) editMode)
     (%with-c-bounds 'GuiDropdownBox
-        (unless (string? text)
-            (set! text (mkstrw 'GuiDropdownBox 2 text)))
-        (when text
+        (ensure-str 'GuiDropdownBox text 2
             (let ((active-idx (container-value active)))
                 (unless (elong? active-idx)
                     (set! active-idx (mkboolw 'GuiDropdownBox 3 active-idx)))
@@ -1164,64 +1089,42 @@
 
 (defbuiltin (guispinner bounds text (ref . value) minValue maxValue editMode)
     (%with-c-bounds 'GuiSpinner
-        (unless (or (null? text)
-                    (string? text))
-            (set! text (mkstrw 'GuiSpinner 2 text)))
-        (when text
+        (ensure-nullable-str 'GuiSpinner text 2
             (let ((value-val (container-value value)))
-                (unless (elong? value-val)
-                    (set! value-val (mkelongw 'GuiSpinner 3 value-val)))
-                (when value-val
-                    (unless (elong? minValue)
-                        (set! minValue (mkelongw 'GuiSpinner 4 minValue)))
-                    (when minValue
-                        (unless (elong? maxValue)
-                            (set! maxValue (mkelongw 'GuiSpinner 5 maxValue)))
-                        (when maxValue
-                            (unless (boolean? editMode)
-                                (set! editMode (mkboolw 'GuiSpinner 6 editMode)))
-                            (when (boolean? editMode)
-                                (pragma "int value")
-                                (pragma "value = (int)$1" ($belong->elong value-val))
-                                (pragma "int result")
-                                (pragma "result = GuiSpinner(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
-                                        text
-                                        ($belong->elong minValue)
-                                        ($belong->elong maxValue)
-                                        editMode)
-                                (container-value-set! value (pragma::elong "value"))
-                                (pragma::elong "result")))))))))
+                (ensure-elongs 'GuiSpinner (value-val minValue maxValue) 3
+                    (unless (boolean? editMode)
+                        (set! editMode (mkboolw 'GuiSpinner 6 editMode)))
+                    (when (boolean? editMode)
+                        (pragma "int value")
+                        (pragma "value = (int)$1" ($belong->elong value-val))
+                        (pragma "int result")
+                        (pragma "result = GuiSpinner(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
+                                text
+                                ($belong->elong minValue)
+                                ($belong->elong maxValue)
+                                editMode)
+                        (container-value-set! value (pragma::elong "value"))
+                        (pragma::elong "result")))))))
 
 ; return #t
 (defbuiltin (guivaluebox bounds text (ref . value) minValue maxValue editMode)
     (%with-c-bounds 'GuiValueBox
-        (unless (or (null? text)
-                    (string? text))
-            (set! text (mkstrw 'GuiValueBox 2 text)))
-        (when text
+        (ensure-nullable-str 'GuiValueBox text 2
             (let ((value-val (container-value value)))
-                (unless (elong? value-val)
-                    (set! value-val (mkelongw 'GuiValueBox 3 value-val)))
-                (when value-val
-                    (unless (elong? minValue)
-                        (set! minValue (mkelongw 'GuiValueBox 4 minValue)))
-                    (when minValue
-                        (unless (elong? maxValue)
-                            (set! maxValue (mkelongw 'GuiValueBox 5 maxValue)))
-                        (when maxValue
-                            (unless (boolean? editMode)
-                                (set! editMode (mkboolw 'GuiValueBox 6 editMode)))
-                            (when (boolean? editMode)
-                                (pragma "int value")
-                                (pragma "value = (int)$1" ($belong->elong value-val))
-                                (pragma "int result")
-                                (pragma "result = GuiValueBox(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
-                                        text
-                                        ($belong->elong minValue)
-                                        ($belong->elong maxValue)
-                                        editMode)
-                                (container-value-set! value (pragma::elong "value"))
-                                (pragma::elong "result")))))))))
+                (ensure-elongs 'GuiValueBox (value-val minValue maxValue) 3
+                    (unless (boolean? editMode)
+                        (set! editMode (mkboolw 'GuiValueBox 6 editMode)))
+                    (when (boolean? editMode)
+                        (pragma "int value")
+                        (pragma "value = (int)$1" ($belong->elong value-val))
+                        (pragma "int result")
+                        (pragma "result = GuiValueBox(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &value, (int)$2, (int)$3, $4 == BTRUE)"
+                                text
+                                ($belong->elong minValue)
+                                ($belong->elong maxValue)
+                                editMode)
+                        (container-value-set! value (pragma::elong "value"))
+                        (pragma::elong "result")))))))
 
 ; return #t on ENTER pressed
 ; textBuf: pre-allocated buf string, str_repeat/str_pad
@@ -1242,131 +1145,78 @@
 
 (defbuiltin (guislider bounds textLeft textRight (ref . value) minValue maxValue)
     (%with-c-bounds 'GuiSlider
-        (unless (or (null? textLeft)
-                    (string? textLeft))
-            (set! textLeft (mkstrw 'GuiSlider 2 textLeft)))
-        (when textLeft
-            (unless (or (null? textRight)
-                        (string? textRight))
-                (set! textRight (mkstrw 'GuiSlider 3 textRight)))
-            (when textRight
-                (let ((value-val (container-value value)))
-                    (unless (flonum? value-val)
-                        (set! value-val (mkflonumw 'GuiSlider 4 value-val)))
-                    (when value-val
-                        (unless (flonum? minValue)
-                            (set! minValue (mkflonumw 'GuiSlider 5 minValue)))
-                        (when minValue
-                            (unless (flonum? maxValue)
-                                (set! maxValue (mkflonumw 'GuiSlider 6 maxValue)))
-                            (when maxValue
-                                (pragma "float value")
-                                (pragma "value = (float)$1" ($real->double value-val))
-                                (pragma "GuiSlider(bounds,
-                                                   NULLP($1) ? NULL : BSTRING_TO_STRING($1),
-                                                   NULLP($2) ? NULL : BSTRING_TO_STRING($2),
-                                                   &value,
-                                                   (float)$3,
-                                                   (float)$4)"
-                                        textLeft
-                                        textRight
-                                        ($real->double minValue)
-                                        ($real->double maxValue))
-                                (container-value-set! value (pragma::double "value"))
-                                NULL))))))))
+        (ensure-nullable-strs 'GuiSlider (textLeft textRight) 2
+            (let ((value-val (container-value value)))
+                (ensure-flonums 'GuiSlider (value-val minValue maxValue) 4
+                    (pragma "float value")
+                    (pragma "value = (float)$1" ($real->double value-val))
+                    (pragma "GuiSlider(bounds,
+                                       NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                       NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                       &value,
+                                       (float)$3,
+                                       (float)$4)"
+                            textLeft
+                            textRight
+                            ($real->double minValue)
+                            ($real->double maxValue))
+                    (container-value-set! value (pragma::double "value"))
+                    NULL)))))
 
 (defbuiltin (guisliderbar bounds textLeft textRight (ref . value) minValue maxValue)
     (%with-c-bounds 'GuiSliderBar
-        (unless (or (null? textLeft)
-                    (string? textLeft))
-            (set! textLeft (mkstrw 'GuiSliderBar 2 textLeft)))
-        (when textLeft
-            (unless (or (null? textRight)
-                        (string? textRight))
-                (set! textRight (mkstrw 'GuiSliderBar 3 textRight)))
-            (when textRight
-                (let ((value-val (container-value value)))
-                    (unless (flonum? value-val)
-                        (set! value-val (mkflonumw 'GuiSliderBar 4 value-val)))
-                    (when value-val
-                        (unless (flonum? minValue)
-                            (set! minValue (mkflonumw 'GuiSliderBar 5 minValue)))
-                        (when minValue
-                            (unless (flonum? maxValue)
-                                (set! maxValue (mkflonumw 'GuiSliderBar 6 maxValue)))
-                            (when maxValue
-                                (pragma "float value")
-                                (pragma "value = (float)$1" ($real->double value-val))
-                                (pragma "GuiSliderBar(bounds,
-                                                      NULLP($1) ? NULL : BSTRING_TO_STRING($1),
-                                                      NULLP($2) ? NULL : BSTRING_TO_STRING($2),
-                                                      &value,
-                                                      (float)$3,
-                                                      (float)$4)"
-                                        textLeft
-                                        textRight
-                                        ($real->double minValue)
-                                        ($real->double maxValue))
-                                (container-value-set! value (pragma::double "value"))
-                                NULL))))))))
+        (ensure-nullable-strs 'GuiSliderBar (textLeft textRight) 2
+            (let ((value-val (container-value value)))
+                (ensure-flonums 'GuiSliderBar (value-val minValue maxValue) 4
+                    (pragma "float value")
+                    (pragma "value = (float)$1" ($real->double value-val))
+                    (pragma "GuiSliderBar(bounds,
+                                          NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                          NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                          &value,
+                                          (float)$3,
+                                          (float)$4)"
+                            textLeft
+                            textRight
+                            ($real->double minValue)
+                            ($real->double maxValue))
+                    (container-value-set! value (pragma::double "value"))
+                    NULL)))))
 
 (defbuiltin (guiprogressbar bounds textLeft textRight value minValue maxValue)
     (%with-c-bounds 'GuiProgressBar
-        (unless (or (null? textLeft)
-                    (string? textLeft))
-            (set! textLeft (mkstrw 'GuiProgressBar 2 textLeft)))
-        (when textLeft
-            (unless (or (null? textRight)
-                        (string? textRight))
-                (set! textRight (mkstrw 'GuiProgressBar 3 textRight)))
-            (when textRight
-                (unless (flonum? value)
-                    (set! value (mkflonumw 'GuiProgressBar 4 value)))
-                (when value
-                    (unless (flonum? minValue)
-                        (set! minValue (mkflonumw 'GuiProgressBar 5 minValue)))
-                    (when minValue
-                        (unless (flonum? maxValue)
-                            (set! maxValue (mkflonumw 'GuiProgressBar 6 maxValue)))
-                        (when maxValue
-                            (pragma "float value")
-                            (pragma "value = (float)$1" ($real->double value))
-                            (pragma "GuiProgressBar(bounds,
-                                                    NULLP($1) ? NULL : BSTRING_TO_STRING($1),
-                                                    NULLP($2) ? NULL : BSTRING_TO_STRING($2),
-                                                    &value,
-                                                    (float)$3,
-                                                    (float)$4)"
-                                    textLeft
-                                    textRight
-                                    ($real->double minValue)
-                                    ($real->double maxValue))
-                            NULL)))))))
+        (ensure-nullable-strs 'GuiProgressBar (textLeft textRight) 2
+            (ensure-flonums 'GuiProgressBar (value minValue maxValue) 4
+                (pragma "float value")
+                (pragma "value = (float)$1" ($real->double value))
+                (pragma "GuiProgressBar(bounds,
+                                        NULLP($1) ? NULL : BSTRING_TO_STRING($1),
+                                        NULLP($2) ? NULL : BSTRING_TO_STRING($2),
+                                        &value,
+                                        (float)$3,
+                                        (float)$4)"
+                        textLeft
+                        textRight
+                        ($real->double minValue)
+                        ($real->double maxValue))
+                NULL))))
 
 (defbuiltin (guistatusbar bounds text)
-    (%with-c-bounds 'GuiStatusBar
-        (unless (string? text)
-            (set! text (mkstrw 'GuiStatusBar 2 text)))
-        (when text
+    (%with-c-bounds 'GuiStatusar
+        (ensure-str 'GuiStatusBar text 2
             (pragma "GuiStatusBar(bounds, $1)" ($bstring->string text))
             NULL)))
 
 (defbuiltin (guidummyrec bounds text)
     (%with-c-bounds 'GuiDummyRec
-        (unless (string? text)
-            (set! text (mkstrw 'GuiDummyRec 2 text)))
-        (when text
+        (ensure-str 'GuiDummyRec text 2
             (pragma "GuiDummyRec(bounds, $1)" ($bstring->string text))
             NULL)))
 
 (defbuiltin (guigrid bounds spacing subdivs ((ref . mouseCell) unpassed))
     (%with-c-bounds 'GuiGrid
-        (unless (flonum? spacing)
-            (set! spacing (mkflonumw 'GuiGrid 2 spacing)))
-        (when spacing
-            (unless (elong? subdivs)
-                (set! subdivs (mkelongw 'GuiGrid 3 subdivs)))
-            (when subdivs
+        (ensure-flonum 'GuiGrid spacing 2
+            (ensure-elong 'GuiGrid subdivs 3
                 (if (eq? mouseCell unpassed)
                     (pragma "GuiGrid(bounds, NULL, (float)$1, (int)$2, NULL)"
                             ($real->double spacing)
@@ -1383,56 +1233,40 @@
 
 (defbuiltin (guilistview bounds text (ref . scrollIndex) (ref . active))
     (%with-c-bounds 'GuiListView
-        (unless (or (null? text)
-                    (string? text))
-            (set! text (mkstrw 'GuiListView 2 text)))
-        (when text
-            (let ((scrollIndex-val (container-value scrollIndex)))
-                (unless (elong? scrollIndex-val)
-                    (set! scrollIndex-val (mkelongw 'GuiListView 3 scrollIndex-val)))
-                (when scrollIndex-val
-                    (let ((active-idx (container-value active)))
-                        (unless (elong? active-idx)
-                            (set! active-idx (mkelongw 'GuiListView 4 active-idx)))
-                        (when active-idx
-                            (pragma "int scrollIndex, active")
-                            (pragma "scrollIndex = (int)$1;
-                                     active = (int)$2"
-                                    ($belong->elong scrollIndex-val)
-                                    ($belong->elong active-idx))
-                            (pragma "GuiListView(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &scrollIndex, &active)"
-                                    text)
-                            (container-value-set! scrollIndex (pragma::elong "scrollIndex"))
-                            (container-value-set! active (pragma::elong "active"))
-                            NULL)))))))
+        (ensure-nullable-str 'GuiListView text 2
+            (let ((scrollIndex-val (container-value scrollIndex))
+                  (active-idx (container-value active)))
+                (ensure-elongs 'GuiListView (scrollIndex-val active-idx) 3
+                    (pragma "int scrollIndex, active")
+                    (pragma "scrollIndex = (int)$1;
+                             active = (int)$2"
+                            ($belong->elong scrollIndex-val)
+                            ($belong->elong active-idx))
+                    (pragma "GuiListView(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &scrollIndex, &active)"
+                            text)
+                    (container-value-set! scrollIndex (pragma::elong "scrollIndex"))
+                    (container-value-set! active (pragma::elong "active"))
+                    NULL)))))
 
 (defbuiltin (guilistviewex bounds items (ref . scrollIndex) (ref . active) (ref . focus))
     (%with-c-bounds 'GuiListViewEx
         (%with-c-text-list 'GuiListViewEx 2 items
-            (let ((scrollIndex-val (container-value scrollIndex)))
-                (unless (elong? scrollIndex-val)
-                    (set! scrollIndex-val (mkelongw 'GuiListViewEx 3 scrollIndex-val)))
-                (when scrollIndex-val
-                    (let ((active-idx (container-value active)))
-                        (unless (elong? active-idx)
-                            (set! active-idx (mkelongw 'GuiListViewEx 4 active-idx)))
-                        (when active-idx
-                            (let ((focus-val (container-value focus)))
-                                (unless (elong? focus-val)
-                                    (set! focus-val (mkelongw 'GuiListViewEx 5 focus-val)))
-                                (when focus-val
-                                    (pragma "int scrollIndex, active, focus")
-                                    (pragma "scrollIndex = (int)$1;
-                                             active = (int)$2;
-                                             focus = (int)$3"
-                                            ($belong->elong scrollIndex-val)
-                                            ($belong->elong active-idx)
-                                            ($belong->elong focus-val))
-                                    (pragma "GuiListViewEx(bounds, text, count, &scrollIndex, &active, &focus)")
-                                    (container-value-set! scrollIndex (pragma::elong "scrollIndex"))
-                                    (container-value-set! active (pragma::elong "active"))
-                                    (container-value-set! focus (pragma::elong "focus"))
-                                    NULL)))))))))
+            (let ((scrollIndex-val (container-value scrollIndex))
+                  (active-idx (container-value active))
+                  (focus-val (container-value focus)))
+                (ensure-elongs 'GuiListViewEx (scrollIndex-val active-idx focus-val) 3
+                    (pragma "int scrollIndex, active, focus")
+                    (pragma "scrollIndex = (int)$1;
+                             active = (int)$2;
+                             focus = (int)$3"
+                            ($belong->elong scrollIndex-val)
+                            ($belong->elong active-idx)
+                            ($belong->elong focus-val))
+                    (pragma "GuiListViewEx(bounds, text, count, &scrollIndex, &active, &focus)")
+                    (container-value-set! scrollIndex (pragma::elong "scrollIndex"))
+                    (container-value-set! active (pragma::elong "active"))
+                    (container-value-set! focus (pragma::elong "focus"))
+                    NULL)))))
 ; -1: no action
 ;  0: close
 ;  1: button 1
@@ -1440,66 +1274,47 @@
 ;  N: button N
 (defbuiltin (guimessagebox bounds title message buttons)
     (%with-c-bounds 'GuiMessageBox
-        (unless (string? title)
-            (set! title (mkstrw 'GuiMessageBox 2 title)))
-        (when title
-            (unless (string? message)
-                (set! message (mkstrw 'GuiMessageBox 3 message)))
-            (when message
-                (unless (string? buttons)
-                    (set! buttons (mkstrw 'GuiMessageBox 4 buttons)))
-                (when buttons
-                    (pragma::elong "GuiMessageBox(bounds, $1, $2, $3)"
-                                   ($bstring->string title)
-                                   ($bstring->string message)
-                                   ($bstring->string buttons)))))))
+        (ensure-strs 'GuiMessageBox (title message buttons) 2
+            (pragma::elong "GuiMessageBox(bounds, $1, $2, $3)"
+                           ($bstring->string title)
+                           ($bstring->string message)
+                           ($bstring->string buttons)))))
 
 ; return pressed button index
 (defbuiltin (guitextinputbox bounds title message buttons (ref . textBuf) (ref . filledLen) ((ref . secretViewActive) unpassed))
     (%with-c-bounds 'GuiTextInputBox
-        (unless (string? title)
-            (set! title (mkstrw 'GuiTextInputBox 2 title)))
-        (when title
-            (unless (string? message)
-                (set! message (mkstrw 'GuiTextInputBox 3 message)))
-            (when message
-                (unless (string? buttons)
-                    (set! buttons (mkstrw 'GuiTextInputBox 4 buttons)))
-                (when buttons
-                    (let ((text (container-value textBuf)))
-                        (when (string? text)
-                             (if (eq? secretViewActive unpassed)
-                                 (begin
-                                    (pragma "int result")
-                                    (pragma "result = GuiTextInputBox(bounds, $1, $2, $3, BSTRING_TO_STRING($4), STRING_LENGTH($4), NULL)"
-                                            ($bstring->string title)
-                                            ($bstring->string message)
-                                            ($bstring->string buttons)
-                                            text)
-                                    (container-value-set! filledLen (pragma::elong "strlen(BSTRING_TO_STRING($1))" text))
-                                    (pragma::elong "result"))
-                                 (let ((secretViewActive-val (container-value secretViewActive)))
-                                    (unless (boolean? secretViewActive-val)
-                                        (set! secretViewActive-val (mkboolw 'GuiTextInputBox 7 secretViewActive-val)))
-                                    (when (boolean? secretViewActive-val)
-                                        (pragma "bool secretViewActive")
-                                        (pragma "secretViewActive = $1 == BTRUE" secretViewActive-val)
-                                        (pragma "int result")
-                                        (pragma "result = GuiTextInputBox(bounds, $1, $2, $3, BSTRING_TO_STRING($4), STRING_LENGTH($4), &secretViewActive)"
-                                                ($bstring->string title)
-                                                ($bstring->string message)
-                                                ($bstring->string buttons)
-                                                text)
-                                        (container-value-set! filledLen (pragma::elong "strlen(BSTRING_TO_STRING($1))" text))
-                                        (container-value-set! secretViewActive (pragma::bool "secretViewActive"))
-                                        (pragma::elong "result")))))))))))
+        (ensure-strs 'GuiTextInputBox (title message buttons) 2
+            (let ((text (container-value textBuf)))
+                (when (string? text)
+                     (if (eq? secretViewActive unpassed)
+                         (begin
+                            (pragma "int result")
+                            (pragma "result = GuiTextInputBox(bounds, $1, $2, $3, BSTRING_TO_STRING($4), STRING_LENGTH($4), NULL)"
+                                    ($bstring->string title)
+                                    ($bstring->string message)
+                                    ($bstring->string buttons)
+                                    text)
+                            (container-value-set! filledLen (pragma::elong "strlen(BSTRING_TO_STRING($1))" text))
+                            (pragma::elong "result"))
+                         (let ((secretViewActive-val (container-value secretViewActive)))
+                            (unless (boolean? secretViewActive-val)
+                                (set! secretViewActive-val (mkboolw 'GuiTextInputBox 7 secretViewActive-val)))
+                            (when (boolean? secretViewActive-val)
+                                (pragma "bool secretViewActive")
+                                (pragma "secretViewActive = $1 == BTRUE" secretViewActive-val)
+                                (pragma "int result")
+                                (pragma "result = GuiTextInputBox(bounds, $1, $2, $3, BSTRING_TO_STRING($4), STRING_LENGTH($4), &secretViewActive)"
+                                        ($bstring->string title)
+                                        ($bstring->string message)
+                                        ($bstring->string buttons)
+                                        text)
+                                (container-value-set! filledLen (pragma::elong "strlen(BSTRING_TO_STRING($1))" text))
+                                (container-value-set! secretViewActive (pragma::bool "secretViewActive"))
+                                (pragma::elong "result")))))))))
 
 (defbuiltin (guicolorpicker bounds text (ref . color))
     (%with-c-bounds 'GuiColorPicker
-        (unless (or (null? text)
-                    (string? text))
-            (set! text (mkstrw 'GuiColorPicker 2 text)))
-        (when text
+        (ensure-nullable-str 'GuiColorPicker text 2
             (let ((color-val (container-value color)))
                 (pragma "Color c")
                 (when (or (null? color-val)
@@ -1511,9 +1326,7 @@
 
 (defbuiltin (guicolorpanel bounds text (ref . color))
     (%with-c-bounds 'GuiColorPanel
-        (unless (string? text)
-            (set! text (mkstrw 'GuiColorPanel 2 text)))
-        (when text
+        (ensure-str 'GuiColorPanel text 2
             (let ((color-val (container-value color)))
                 (pragma "Color c")
                 (when (or (null? color-val)
@@ -1525,9 +1338,7 @@
 (defbuiltin (guicolorbaralpha bounds (ref . alpha))
     (%with-c-bounds 'GuiColorBarAlpha
         (let ((alpha-val (container-value alpha)))
-            (unless (flonum? alpha-val)
-                (set! alpha-val (mkflonumw 'GuiColorBarAlpha 3 alpha-val)))
-            (when alpha-val
+            (ensure-flonum 'GuiColorBarAlpha alpha-val 3
                 (pragma "float alpha")
                 (pragma "alpha = (float)$1" ($real->double alpha-val))
                 (pragma "GuiColorBarAlpha(bounds, NULL, &alpha)")
@@ -1536,13 +1347,9 @@
 
 (defbuiltin (guicolorbarhue bounds text (ref . value))
     (%with-c-bounds 'GuiColorBarHue
-        (unless (string? text)
-            (set! text (mkstrw 'GuiColorBarHue 2 text)))
-        (when text
+        (ensure-str 'GuiColorBarHue text 2
             (let ((value-val (container-value value)))
-                (unless (flonum? value-val)
-                    (set! value-val (mkflonumw 'GuiColorBarHue 3 value-val)))
-                (when value-val
+                (ensure-flonum 'GuiColorBarHue value-val 3
                     (pragma "float value")
                     (pragma "value = (float)$1" ($real->double value-val))
                     (pragma "GuiColorBarHue(bounds, $1, &value)" ($bstring->string text))
@@ -1551,9 +1358,7 @@
 
 (defbuiltin (guicolorpickerhsv bounds text (ref . colorHsv))
     (%with-c-bounds 'GuiColorPickerHSV
-        (unless (string? text)
-            (set! text (mkstrw 'GuiColorPickerHSV 2 text)))
-        (when text
+        (ensure-str 'GuiColorPickerHSV text 2
             (let ((colorHsv-val (container-value colorHsv)))
                 (pragma "Vector3 v3")
                 (when (or (null? colorHsv-val)
@@ -1564,9 +1369,7 @@
 
 (defbuiltin (guicolorpanelhsv bounds text (ref . colorHsv))
     (%with-c-bounds 'GuiColorPanelHSV
-        (unless (string? text)
-            (set! text (mkstrw 'GuiColorPanelHSV 2 text)))
-        (when text
+        (ensure-str 'GuiColorPanelHSV text 2
             (let ((colorHsv-val (container-value colorHsv)))
                 (pragma "Vector3 v3")
                 (when (or (null? colorHsv-val)
