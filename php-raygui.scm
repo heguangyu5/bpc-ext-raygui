@@ -889,12 +889,12 @@
 
 ; Icons functionality
 
-(defbuiltin (guiicontext iconId text)
+(defbuiltin (guiicontext iconId (text NULL))
     (ensure-elong 'GuiIconText iconId 1
-        (ensure-str 'GuiIconText text 2
-            (pragma::string "(char *)GuiIconText((int)$1, $2)"
+        (ensure-nullable-str 'GuiIconText text 2
+            (pragma::string "(char *)GuiIconText((int)$1, NULLP($2) ? NULL : BSTRING_TO_STRING($2))"
                             ($belong->elong iconId)
-                            ($bstring->string text)))))
+                            text))))
 
 ; Container/separator controls, useful for controls organization
 
