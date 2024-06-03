@@ -411,12 +411,12 @@
         (guilistviewex bounds items scrollIndex active focus)
         (guimessagebox bounds title message buttons)
         (guitextinputbox bounds title message buttons textBuf filledLen secretViewActive)
-        (guicolorpicker bounds text color)
-        (guicolorpanel bounds text color)
+        (guicolorpicker bounds color)
+        (guicolorpanel bounds color)
         (guicolorbaralpha bounds alpha)
-        (guicolorbarhue bounds text value)
-        (guicolorpickerhsv bounds text colorHsv)
-        (guicolorpanelhsv bounds text colorHsv)
+        (guicolorbarhue bounds value)
+        (guicolorpickerhsv bounds colorHsv)
+        (guicolorpanelhsv bounds colorHsv)
         ))
 
 (define (init-php-raygui-lib)
@@ -1310,28 +1310,25 @@
                                 (container-value-set! secretViewActive (pragma::bool "secretViewActive"))
                                 (pragma::elong "result")))))))))
 
-(defbuiltin (guicolorpicker bounds text (ref . color))
+(defbuiltin (guicolorpicker bounds (ref . color))
     (%with-c-bounds 'GuiColorPicker
-        (ensure-nullable-str 'GuiColorPicker text 2
-            (let ((color-val (container-value color)))
-                (pragma "Color c")
-                (when (or (null? color-val)
-                          (%init-c-color 'GuiColorPicker 3 color-val "c"))
-                    (pragma "GuiColorPicker(bounds, NULLP($1) ? NULL : BSTRING_TO_STRING($1), &c)"
-                            text)
-                    (container-value-set! color (%mkcolor-c "c"))
-                    NULL)))))
+        (let ((color-val (container-value color)))
+            (pragma "Color c = {0}")
+            (when (or (null? color-val)
+                      (%init-c-color 'GuiColorPicker 3 color-val "c"))
+                (pragma "GuiColorPicker(bounds, NULL, &c)")
+                (container-value-set! color (%mkcolor-c "c"))
+                NULL))))
 
-(defbuiltin (guicolorpanel bounds text (ref . color))
+(defbuiltin (guicolorpanel bounds (ref . color))
     (%with-c-bounds 'GuiColorPanel
-        (ensure-str 'GuiColorPanel text 2
-            (let ((color-val (container-value color)))
-                (pragma "Color c")
-                (when (or (null? color-val)
-                          (%init-c-color 'GuiColorPanel 3 color-val "c"))
-                    (pragma "GuiColorPanel(bounds, $1, &c)" ($bstring->string text))
-                    (container-value-set! color (%mkcolor-c "c"))
-                    NULL)))))
+        (let ((color-val (container-value color)))
+            (pragma "Color c = {0}")
+            (when (or (null? color-val)
+                      (%init-c-color 'GuiColorPanel 3 color-val "c"))
+                (pragma "GuiColorPanel(bounds, NULL, &c)")
+                (container-value-set! color (%mkcolor-c "c"))
+                NULL))))
 
 (defbuiltin (guicolorbaralpha bounds (ref . alpha))
     (%with-c-bounds 'GuiColorBarAlpha
@@ -1343,35 +1340,32 @@
                 (container-value-set! alpha (pragma::double "alpha"))
                 NULL))))
 
-(defbuiltin (guicolorbarhue bounds text (ref . value))
+(defbuiltin (guicolorbarhue bounds (ref . value))
     (%with-c-bounds 'GuiColorBarHue
-        (ensure-str 'GuiColorBarHue text 2
-            (let ((value-val (container-value value)))
-                (ensure-flonum 'GuiColorBarHue value-val 3
-                    (pragma "float value")
-                    (pragma "value = (float)$1" ($real->double value-val))
-                    (pragma "GuiColorBarHue(bounds, $1, &value)" ($bstring->string text))
-                    (container-value-set! value (pragma::double "value"))
-                    NULL)))))
+        (let ((value-val (container-value value)))
+            (ensure-flonum 'GuiColorBarHue value-val 3
+                (pragma "float value")
+                (pragma "value = (float)$1" ($real->double value-val))
+                (pragma "GuiColorBarHue(bounds, NULL, &value)")
+                (container-value-set! value (pragma::double "value"))
+                NULL))))
 
-(defbuiltin (guicolorpickerhsv bounds text (ref . colorHsv))
+(defbuiltin (guicolorpickerhsv bounds (ref . colorHsv))
     (%with-c-bounds 'GuiColorPickerHSV
-        (ensure-str 'GuiColorPickerHSV text 2
-            (let ((colorHsv-val (container-value colorHsv)))
-                (pragma "Vector3 v3")
-                (when (or (null? colorHsv-val)
-                          (%init-c-vector3 'GuiColorPickerHSV 3 colorHsv-val "v3"))
-                    (pragma "GuiColorPickerHSV(bounds, $1, &v3)" ($bstring->string text))
-                    (container-value-set! colorHsv (%mkvector3-v "v3"))
-                    NULL)))))
+        (let ((colorHsv-val (container-value colorHsv)))
+            (pragma "Vector3 v3 = {0}")
+            (when (or (null? colorHsv-val)
+                      (%init-c-vector3 'GuiColorPickerHSV 3 colorHsv-val "v3"))
+                (pragma "GuiColorPickerHSV(bounds, NULL, &v3)")
+                (container-value-set! colorHsv (%mkvector3-v "v3"))
+                NULL))))
 
-(defbuiltin (guicolorpanelhsv bounds text (ref . colorHsv))
+(defbuiltin (guicolorpanelhsv bounds (ref . colorHsv))
     (%with-c-bounds 'GuiColorPanelHSV
-        (ensure-str 'GuiColorPanelHSV text 2
-            (let ((colorHsv-val (container-value colorHsv)))
-                (pragma "Vector3 v3")
-                (when (or (null? colorHsv-val)
-                          (%init-c-vector3 'GuiColorPanelHSV 3 colorHsv-val "v3"))
-                    (pragma "GuiColorPanelHSV(bounds, $1, &v3)" ($bstring->string text))
-                    (container-value-set! colorHsv (%mkvector3-v "v3"))
-                    NULL)))))
+        (let ((colorHsv-val (container-value colorHsv)))
+            (pragma "Vector3 v3 = {0}")
+            (when (or (null? colorHsv-val)
+                      (%init-c-vector3 'GuiColorPanelHSV 3 colorHsv-val "v3"))
+                (pragma "GuiColorPanelHSV(bounds, NULL, &v3)")
+                (container-value-set! colorHsv (%mkvector3-v "v3"))
+                NULL))))
