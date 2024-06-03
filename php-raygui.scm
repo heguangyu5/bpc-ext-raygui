@@ -1072,9 +1072,7 @@
     (%with-c-bounds 'GuiDropdownBox
         (ensure-str 'GuiDropdownBox text 2
             (let ((active-idx (container-value active)))
-                (unless (elong? active-idx)
-                    (set! active-idx (mkboolw 'GuiDropdownBox 3 active-idx)))
-                (when active-idx
+                (ensure-elong 'GuiDropdownBox active-idx 3
                     (unless (boolean? editMode)
                         (set! editMode (mkboolw 'GuiDropdownBox 4 editMode)))
                     (when (boolean? editMode)
