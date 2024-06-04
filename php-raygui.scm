@@ -1010,9 +1010,7 @@
     (%with-c-bounds 'GuiToggle
         (ensure-str 'GuiToggle text 2
             (let ((active-val (container-value active)))
-                (unless (boolean? active-val)
-                    (set! active-val (mkboolw 'GuiToggle 3 active-val)))
-                (when (boolean? active-val)
+                (ensure-bool 'GuiToggle active-val 3
                     (pragma "bool active")
                     (pragma "active = $1 == BTRUE" active-val)
                     (pragma "GuiToggle(bounds, $1, &active)" ($bstring->string text))
@@ -1047,9 +1045,7 @@
     (%with-c-bounds 'GuiCheckBox
         (ensure-str 'GuiCheckBox text 2
             (let ((checked-val (container-value checked)))
-                (unless (boolean? checked-val)
-                    (set! checked-val (mkboolw 'GuiCheckBox 3 checked-val)))
-                (when (boolean? checked-val)
+                (ensure-bool 'GuiCheckBox checked-val 3
                     (pragma "bool checked")
                     (pragma "checked = $1 == BTRUE" checked-val)
                     (pragma "GuiCheckBox(bounds, $1, &checked)" ($bstring->string text))
@@ -1073,9 +1069,7 @@
         (ensure-str 'GuiDropdownBox text 2
             (let ((active-idx (container-value active)))
                 (ensure-elong 'GuiDropdownBox active-idx 3
-                    (unless (boolean? editMode)
-                        (set! editMode (mkboolw 'GuiDropdownBox 4 editMode)))
-                    (when (boolean? editMode)
+                    (ensure-bool 'GuiDropdownBox editMode 4
                         (pragma "int active")
                         (pragma "active = (int)$1" ($belong->elong active-idx))
                         (pragma "int result")
@@ -1090,9 +1084,7 @@
         (ensure-nullable-str 'GuiSpinner text 2
             (let ((value-val (container-value value)))
                 (ensure-elongs 'GuiSpinner (value-val minValue maxValue) 3
-                    (unless (boolean? editMode)
-                        (set! editMode (mkboolw 'GuiSpinner 6 editMode)))
-                    (when (boolean? editMode)
+                    (ensure-bool 'GuiSpinner editMode 6
                         (pragma "int value")
                         (pragma "value = (int)$1" ($belong->elong value-val))
                         (pragma "int result")
@@ -1110,9 +1102,7 @@
         (ensure-nullable-str 'GuiValueBox text 2
             (let ((value-val (container-value value)))
                 (ensure-elongs 'GuiValueBox (value-val minValue maxValue) 3
-                    (unless (boolean? editMode)
-                        (set! editMode (mkboolw 'GuiValueBox 6 editMode)))
-                    (when (boolean? editMode)
+                    (ensure-bool 'GuiValueBox editMode 6
                         (pragma "int value")
                         (pragma "value = (int)$1" ($belong->elong value-val))
                         (pragma "int result")
@@ -1131,9 +1121,7 @@
     (%with-c-bounds 'GuiTextBox
         (let ((text (container-value textBuf)))
             (when (string? text)
-                (unless (boolean? editMode)
-                    (set! editMode (mkboolw 'GuiTextBox 4 editMode)))
-                (when (boolean? editMode)
+                (ensure-bool 'GuiTextBox editMode 4
                     (pragma "int result")
                     (pragma "result = GuiTextBox(bounds, BSTRING_TO_STRING($1), STRING_LENGTH($1), $2 == BTRUE)"
                             text
@@ -1295,9 +1283,7 @@
                             (container-value-set! filledLen (pragma::elong "strlen(BSTRING_TO_STRING($1))" text))
                             (pragma::elong "result"))
                          (let ((secretViewActive-val (container-value secretViewActive)))
-                            (unless (boolean? secretViewActive-val)
-                                (set! secretViewActive-val (mkboolw 'GuiTextInputBox 7 secretViewActive-val)))
-                            (when (boolean? secretViewActive-val)
+                            (ensure-bool 'GuiTextInputBox secretViewActive-val 7
                                 (pragma "bool secretViewActive")
                                 (pragma "secretViewActive = $1 == BTRUE" secretViewActive-val)
                                 (pragma "int result")

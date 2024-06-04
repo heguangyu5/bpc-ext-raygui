@@ -155,7 +155,7 @@ while (!$exitWindow)
 
         // Third GUI column ---------------------------------------------
         GuiPanel(array(320, 25, 225, 140), "Panel Info");
-        GuiColorPicker(array(320, 185, 196, 192), NULL, $colorPickerValue);
+        GuiColorPicker(array(320, 185, 196, 192), $colorPickerValue);
 
         GuiSlider(array(355, 400, 165, 20), "TEST", sprintf("%2.2f", $sliderValue), $sliderValue, -50, 100);
         GuiSliderBar(array(320, 430, 200, 20), NULL, (int)$sliderBarValue, $sliderBarValue, 0, 100);
