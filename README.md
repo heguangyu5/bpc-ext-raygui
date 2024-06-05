@@ -1,7 +1,7 @@
 # 1. How to make
 
 ```shell
-make debug && make && sudo make install
+make && sudo make install
 bpc -v -c bpc-raygui.conf --static -d display_errors=on -d max_execution_time=-1 test.php
 ./test
 ```
