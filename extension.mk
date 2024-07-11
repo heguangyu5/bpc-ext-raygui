@@ -18,6 +18,9 @@ unsafe:
 safe:
 	UNSAFE=f $(MAKE) all-run
 
+optimize:
+	OPTIMIZE=t $(MAKE) unsafe
+
 all-run: mkbuild $(BUILD_DIR)/lib$(LIBNAME)_$(SUV).a $(BUILD_DIR)/lib$(LIBNAME)_$(SUV).so
 	echo '(init-$(LIBNAME)-lib)' > $(BUILD_DIR)/$(LIBNAME).sch
 
